@@ -1,0 +1,2 @@
+localhost is not working in DB_URI, 127.0.0.1 and 0.0.0.0 are working.
+https://mongoosejs.com/docs/connections.html
