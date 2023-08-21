@@ -1,6 +1,7 @@
 require('dotenv').config();
+const { connectToDatabase } = require('./config');
 const app = require('./src/app');
-const connectToDatabase = require('./src/db');
+
 const { PORT, BASE_URL } = process.env;
 
 (async () => {
@@ -10,7 +11,7 @@ const { PORT, BASE_URL } = process.env;
     app
       .listen(PORT, () => console.log(`Server is running on ${BASE_URL}`))
       .on('error', (error) => {
-        console.log('Unable to initaialise the server:', error.message);
+        console.log('Unable to initialize the server:', error.message);
         process.exit(1);
       });
   } catch (error) {
