@@ -1,22 +1,5 @@
 localhost is not working in DB_URI, 127.0.0.1 and 0.0.0.0 are working.
 https://mongoosejs.com/docs/connections.html
 
-project_folder_structure
-|
-|---src                      // Application source code
-|   |---controllers          // Route handlers
-|   |---models               // Database models
-|   |---routes               // API routes
-|   |---services             // Common business logic of controllers
-|   |---middlewares          // API Middlewares 
-|   |---errorHandlers        // API error handlers
-|   |---utils                // Utility functions
-|   |---app.js               // Main application file
-|---config                   // Configuration files
-|   |---database.js          // Database conf
-|   |---settings.js          // Application settings conf
-|---public                   // Public assets
-|---views                    // View templates
-|---tests                    // Unit and integration tests
-|---index.js                 // Project Entry file (server)
-|---README.md                // Project documentation
+no need to specify views folder if it is in root folder
+app.set('views', path.join(__dirname, '../views'));
