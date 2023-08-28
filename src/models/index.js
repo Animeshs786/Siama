@@ -1,3 +1,4 @@
+const Admin = require('./admin');
 const Category = require('./category');
 const InitUser = require('./initUser');
 const Service = require('./service');
@@ -10,4 +11,5 @@ module.exports = {
   Category,
   SubCategory,
   Service,
+  Admin,
 };
