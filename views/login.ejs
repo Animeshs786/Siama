@@ -2,6 +2,42 @@
 <html lang="en">
 
 <head>
+  <title>Login Admin Panel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/public/css/login.css">
+</head>
+
+<body>
+  <div class="background">
+    <div class="shape"></div>
+    <div class="shape"></div>
+  </div>
+  <form action="/admin/login" method="post">
+    <h3>Admin Login</h3>
+
+    <label for="email">Email ID</label>
+    <input type="email" value="<?=locals?.data?.email ?? '' ?>" placeholder="Email" name="email" id="email" required>
+
+    <label for="password">Password</label>
+    <input type="password" value="<?=locals?.data?.password ?? '' ?>" placeholder="Password" name="password"
+      id="password" required>
+    <span class="error-msg">
+      <? if(locals.error){ ?>
+      <?=error.message?>
+      <? } ?>
+    </span>
+    <button>Login</button>
+
+  </form>
+</body>
+
+</html>
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login Admin Panel</title>
@@ -12,17 +48,18 @@
     <form action="/admin/login" method="post">
 
       <label for="email">Email:</label>
-      <input type="text" value="<%=locals?.data?.email ?? '' %>" name="email" id="email" />
+      <input type="text" value="<?=locals?.data?.email ?? '' ?>" name="email" id="email" />
 
       <label for="password">Password:</label>
-      <input type="password" value="<%=locals?.data?.password ?? '' %>" name="password" id="password" />
+      <input type="password" value="<?=locals?.data?.password ?? '' ?>" name="password" id="password" />
 
       <button>Login</button>
-      <% if(locals.error){ %>
-        <%=error.message%>
-          <% } %>
+      <br>
+      <? //if(locals.error){ ?>
+      <?=//error.message?>
+      <? //} ?>
     </form>
   </div>
 </body>
 
-</html>
+</html> -->

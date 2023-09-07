@@ -2,13 +2,67 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>iBozoo - Dashboard</title>
 </head>
 
 <body>
-  <h2>Dashboard</h2>
+  <h2>Dashboard - iBuzoo</h2>
+
+  <h3>Categories <a href="/admin/category">+</a></h3>
+
+  <table border="1" style="border-collapse: collapse;">
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+    </tr>
+    <? if(data.categories.length){ ?>
+    <? data.categories.forEach(cat => {?>
+
+    <tr>
+      <td>
+        <?=cat._id?>
+      </td>
+      <td>
+        <?=cat.name?>
+      </td>
+
+    </tr>
+    <?}) ?>
+    <? }else{ ?>
+    <tr>
+      <td>No Categories Found!</td>
+    </tr>
+    <?}?>
+
+  </table>
+  <h3>Services <a href="/admin/service">+</a></h3>
+  <table border="1" style="border-collapse: collapse;">
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+    </tr>
+    <? if(data.services.length){ ?>
+    <? data.services.forEach(serv => {?>
+    <tr>
+      <td>
+        <?=serv._id?>
+        <a href="/admin/service/231">Edit</a>
+      </td>
+      <td>
+        <?=serv.name?>
+      </td>
+    </tr>
+    <?}) ?>
+    <? }else{ ?>
+    <tr>
+      <td>No Service Found!</td>
+    </tr>
+    <?}?>
+
+  </table>
+  <a href="/admin/logout">Logout</a>
 </body>
 
 </html>

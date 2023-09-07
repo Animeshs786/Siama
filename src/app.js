@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const ejs = require('ejs');
 const session = require('express-session');
 const appRoutes = require('./routes');
 const { initData } = require('./script');
@@ -14,10 +15,14 @@ app.set('view engine', 'ejs');
 app.use(
   session({
     secret: 'secretkey',
-    resave: false,
+    resave: false, // R&D on options
     saveUninitialized: false,
+    // cookie: { secure: true },
   })
 );
+// ejs.openDelimiter = '[';
+ejs.delimiter = '?'; // little formating
+// ejs.closeDelimiter = ']';
 
 initData();
 appRoutes(app);

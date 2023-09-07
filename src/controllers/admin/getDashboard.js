@@ -1,6 +1,14 @@
+const { Category, Service } = require('../../models');
+
 const getDashboard = async (req, res, next) => {
   try {
-    return res.render('dashboard');
+    const categories = await Category.find();
+    const services = await Service.find();
+    const data = {
+      categories,
+      services,
+    };
+    return res.render('dashboard', { data });
   } catch (error) {
     next(error);
   }

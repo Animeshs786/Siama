@@ -2,10 +2,13 @@ const { Category, SubCategory, Service } = require('../models');
 
 async function addService() {
   const service = new Service({
-    name: 'AC Cleaning',
-    description: 'Testing Service.' + Date.now(),
-    price: 100,
-    duration: '30min',
+    name: 'Test - AC Cleaning',
+    description: 'Testing Service. Description ' + Date.now(),
+    mrp: 300,
+    selling_price: 200,
+    consult_required: true,
+    consult_fee: 50,
+    estimate_time: '30min',
   });
   await service.save();
 }
@@ -21,9 +24,9 @@ async function getServices() {
 
 async function addSubCategory() {
   const subCat = new SubCategory({
-    name: 'AC services',
-    description: 'Testing sub catego.' + Date.now(),
-    services: ['64e70141cb931eca960927b0'],
+    name: 'Test - AC services',
+    description: 'Testing sub catego. This is just a description.' + Date.now(),
+    // services: [],
   });
   await subCat.save();
 }
@@ -41,9 +44,9 @@ async function getSubCategories() {
 
 async function addCategory() {
   const cat = new Category({
-    name: 'Repair and Maintanace',
-    description: 'Testing Category.' + Date.now(),
-    sub_categories: ['64e702373744a5d361513796'],
+    name: 'Test - Home Repairs and Paintings',
+    description: 'Testing Category. This is just a description.' + Date.now(),
+    // sub_categories: ['64e702373744a5d361513796'],
   });
   await cat.save();
 }
@@ -62,4 +65,19 @@ async function getCategories() {
   console.log(categs);
 }
 // getCategories();
+//-----------------------------------------------------
+async function addSubCategoryToCategory(cat_id, sub_id) {
+  await Category.findByIdAndUpdate(cat_id, {
+    $push: { sub_categories: sub_id },
+  });
+}
+// addSubCategoryToCategory('64f85261b764a68e6332d8a0', '64f85721c9bf6d698bf6e0d2');
+//-----------------------------------------------------
+
+async function addServiceToSubCategory(sub_id, serv_id) {
+  await SubCategory.findByIdAndUpdate(sub_id, {
+    $push: { services: serv_id },
+  });
+}
+// addServiceToSubCategory('64f85721c9bf6d698bf6e0d2', '64f85d01c8ece51b93683351');
 //-----------------------------------------------------

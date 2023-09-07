@@ -10,6 +10,12 @@ const user = new mongoose.Schema(
     otp_expiry: { type: Date, default: Date.now },
     address: { type: String, default: '' },
     profile_image: { type: String, default: '' },
+    cart: [
+      {
+        service: { type: mongoose.Schema.Types.ObjectId, ref: 'Service' },
+        quantity: { type: Number, default: 1 },
+      },
+    ],
   },
   {
     timestamps: {
