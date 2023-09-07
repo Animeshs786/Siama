@@ -1,4 +1,11 @@
 const mongoose = require('mongoose');
+
+const cartItem = new mongoose.Schema({
+  _id: false,
+  service: { type: mongoose.Schema.Types.ObjectId, ref: 'Service' },
+  quantity: { type: Number, default: 1 },
+});
+
 const user = new mongoose.Schema(
   {
     first_name: { type: String, trim: true, required: true },
@@ -10,12 +17,7 @@ const user = new mongoose.Schema(
     otp_expiry: { type: Date, default: Date.now },
     address: { type: String, default: '' },
     profile_image: { type: String, default: '' },
-    cart: [
-      {
-        service: { type: mongoose.Schema.Types.ObjectId, ref: 'Service' },
-        quantity: { type: Number, default: 1 },
-      },
-    ],
+    cart: [cartItem],
   },
   {
     timestamps: {

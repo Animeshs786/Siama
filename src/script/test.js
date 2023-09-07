@@ -1,14 +1,14 @@
-const { Category, SubCategory, Service } = require('../models');
+const { Category, SubCategory, Service, User } = require('../models');
 
 async function addService() {
   const service = new Service({
-    name: 'Test - AC Cleaning',
+    name: 'Home Painting',
     description: 'Testing Service. Description ' + Date.now(),
-    mrp: 300,
-    selling_price: 200,
+    mrp: 1700,
+    selling_price: 1500,
     consult_required: true,
-    consult_fee: 50,
-    estimate_time: '30min',
+    consult_fee: 100,
+    estimate_time: '10 Days',
   });
   await service.save();
 }
@@ -80,4 +80,12 @@ async function addServiceToSubCategory(sub_id, serv_id) {
   });
 }
 // addServiceToSubCategory('64f85721c9bf6d698bf6e0d2', '64f85d01c8ece51b93683351');
+//-----------------------------------------------------
+
+async function addServiceToUserCart(user_id, serv_id) {
+  await User.findByIdAndUpdate(user_id, {
+    $push: { cart: { service: serv_id } },
+  });
+}
+// addServiceToUserCart('64f873f20aab90276f82b428', '64f97d6b3f26cfe7527618af');
 //-----------------------------------------------------
