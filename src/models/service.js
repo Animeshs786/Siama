@@ -7,8 +7,10 @@ const service = new mongoose.Schema(
     mrp: { type: String, required: true },
     selling_price: { type: String, required: true },
     consult_required: { type: Boolean, default: false },
+    consult_online: { type: Boolean, default: false },
     consult_fee: { type: String, default: '0' },
     estimate_time: { type: String, default: '' },
+    status: { type: Boolean, default: true },
   },
   {
     timestamps: {

@@ -1,3 +1,4 @@
+const getUserProfile = require('./auth/getUserProfile');
 const userLogin = require('./auth/userLogin');
 const userSignup = require('./auth/userSignup');
 const verifOtp = require('./auth/verifyOtp');
@@ -7,6 +8,7 @@ const removeCartItem = require('./cart/removeCartItem');
 const updateCartItem = require('./cart/updateCartItem');
 const getAllCategories = require('./getters/getAllCategories');
 const getServiceDetails = require('./getters/getServiceDetails');
+const getServices = require('./getters/getServices');
 const getServicesByCategory = require('./getters/getServicesByCategory');
 const getSubCategories = require('./getters/getSubcategories');
 
@@ -15,6 +17,7 @@ module.exports = {
   userLogin,
   verifOtp,
   userSignup,
+  getUserProfile,
 
   //category and subcategory
   getAllCategories,
@@ -22,6 +25,7 @@ module.exports = {
 
   //service
   getServicesByCategory,
+  getServices,
   getServiceDetails,
 
   //cart

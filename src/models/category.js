@@ -3,8 +3,11 @@ const category = new mongoose.Schema(
   {
     name: { type: String, trim: true, required: true },
     description: { type: String, trim: true, default: '' },
+    image: { type: String, default: '' },
     sub_categories: [{ type: mongoose.Schema.Types.ObjectId, ref: 'SubCategory' }],
     services: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Service' }],
+    priority: { type: Number, default: 0 },
+    status: { type: Boolean, default: true },
   },
   {
     timestamps: {

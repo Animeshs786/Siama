@@ -3,3 +3,6 @@ https://mongoosejs.com/docs/connections.html
 
 no need to specify views folder if it is in root folder
 app.set('views', path.join(__dirname, '../views'));
+
+
+//psql -h <hostname or ip address> -p <port number of remote machine> -d <database name which you want to connect> -U <username of the database server>

@@ -1,9 +1,7 @@
 const authenticateAdmin = require('./authenticateAdmin');
-const isAdminLogin = require('./isAdminLogin');
-const isAdminLogout = require('./isAdminLogout');
+const authenticateUser = require('./authenticateUser');
 
 module.exports = {
+  authenticateUser,
   authenticateAdmin,
-  isAdminLogin,
-  isAdminLogout,
 };

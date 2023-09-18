@@ -19,7 +19,8 @@ const userSignup = async (req, res, next) => {
 
     if (new Date(user.otp_expiry).getTime() + 5 * 60 * 1000 < Date.now()) throw new ApiError('Session expired.', 400);
     if (user.otp !== otp && otp !== STATIC_OTP) throw new ApiError('Incorrect OTP', 400);
-
+    const email_dub = await User.findOne({ email });
+    if (email_dub) throw new ApiError('Email already used.', 400);
     const newUser = new User({
       phone,
       first_name,
@@ -28,7 +29,7 @@ const userSignup = async (req, res, next) => {
     });
     await newUser.save();
     await InitUser.findOneAndDelete({ phone });
-    const token = jwt.sign({ id: user._id, phone: user.phone }, ACCESS_TOKEN_SECRET);
+    const token = jwt.sign({ id: newUser._id, phone: newUser.phone }, ACCESS_TOKEN_SECRET);
     return res.status(200).json({
       status: true,
       message: 'Login successfully.',

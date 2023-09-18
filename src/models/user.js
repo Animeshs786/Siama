@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const { BASE_URL, DEFAULT_USER_IMG } = process.env;
 const cartItem = new mongoose.Schema({
   _id: false,
   service: { type: mongoose.Schema.Types.ObjectId, ref: 'Service' },
@@ -16,7 +16,7 @@ const user = new mongoose.Schema(
     otp: { type: String, default: '' },
     otp_expiry: { type: Date, default: Date.now },
     address: { type: String, default: '' },
-    profile_image: { type: String, default: '' },
+    profile_image: { type: String, default: `${BASE_URL}${process.env.DEFAULT_USER_IMG}` },
     cart: [cartItem],
   },
   {

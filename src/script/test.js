@@ -44,8 +44,8 @@ async function getSubCategories() {
 
 async function addCategory() {
   const cat = new Category({
-    name: 'Test - Home Repairs and Paintings',
-    description: 'Testing Category. This is just a description.' + Date.now(),
+    name: 'Car Repair - 1',
+    description: 'Car Repair - 1' + Date.now(),
     // sub_categories: ['64e702373744a5d361513796'],
   });
   await cat.save();
@@ -71,7 +71,7 @@ async function addSubCategoryToCategory(cat_id, sub_id) {
     $push: { sub_categories: sub_id },
   });
 }
-// addSubCategoryToCategory('64f85261b764a68e6332d8a0', '64f85721c9bf6d698bf6e0d2');
+// addSubCategoryToCategory('64face2208af6ce6535409d6', '64f85721c9bf6d698bf6e0d2');
 //-----------------------------------------------------
 
 async function addServiceToSubCategory(sub_id, serv_id) {
@@ -80,6 +80,14 @@ async function addServiceToSubCategory(sub_id, serv_id) {
   });
 }
 // addServiceToSubCategory('64f85721c9bf6d698bf6e0d2', '64f85d01c8ece51b93683351');
+//-----------------------------------------------------
+
+async function addServiceToCategory(cat_id, serv_id) {
+  await Category.findByIdAndUpdate(cat_id, {
+    $push: { services: serv_id },
+  });
+}
+// addServiceToCategory('64fad1eec8590d2967fa8f95', '64f97d6b3f26cfe7527618af');
 //-----------------------------------------------------
 
 async function addServiceToUserCart(user_id, serv_id) {

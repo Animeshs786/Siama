@@ -6,14 +6,14 @@ const testRoute = require('./test.route');
 const adminRoute = require('./admin.route');
 
 const appRoutes = (app) => {
-  app.use('/public', express.static('public/'));
-  app.get('/', (req, res) => res.status(301).redirect('/api/ping'));
+  app.use('/public', express.static('public'));
+  // app.get('/', (req, res) => res.status(301).redirect('/api/ping'));
   app.get('/api/ping', (_, res) => res.status(200).json({ status: true, message: 'Ping Successfully.', timestamp: new Date() }));
   //user api
-  app.use('/api/user', userRoute);
   app.use('/api/test', testRoute);
+  app.use('/api/user', userRoute);
   //admin panel
-  app.use('/admin', adminRoute);
+  app.use('/api/admin', adminRoute);
   app.use(unspecifiedRoutesHandler);
   app.use(finalErrorHandler);
 };
