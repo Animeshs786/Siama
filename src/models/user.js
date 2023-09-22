@@ -16,7 +16,7 @@ const user = new mongoose.Schema(
     otp: { type: String, default: '' },
     otp_expiry: { type: Date, default: Date.now },
     address: { type: String, default: '' },
-    profile_image: { type: String, default: `${BASE_URL}${process.env.DEFAULT_USER_IMG}` },
+    profile_image: { type: String, default: `${BASE_URL}${DEFAULT_USER_IMG}` },
     cart: [cartItem],
   },
   {

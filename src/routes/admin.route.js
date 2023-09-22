@@ -1,16 +1,11 @@
 const express = require('express');
 const adminRoute = express.Router();
-const { authenticateAdmin, isAdminLogin, isAdminLogout } = require('../middlewares');
+const { authenticateAdmin } = require('../middlewares');
 const {
-  getLoginPage,
   loginAdmin,
   getAdminProfile,
   updateAdminProfile,
-  getDashboard,
-  getIndexPage,
-  getCategoryForm,
   addCategory,
-  getServiceForm,
   addService,
   getUsers,
   getServices,
@@ -23,39 +18,41 @@ const {
   addSubCategory,
   deleteSubCategory,
   updateSubCategory,
+  getUnapprovedVendors,
+  getVendors,
+  approveVendor,
+  assignCategory,
+  assignSubCategory,
 } = require('../controllers/admin');
-
-// adminRoute.get('/', getIndexPage);
-// adminRoute.get('/login', isAdminLogout, getLoginPage);
 adminRoute.post('/login', loginAdmin);
-adminRoute.get('/profile', authenticateAdmin, getAdminProfile);
-adminRoute.patch('/profile', authenticateAdmin, updateAdminProfile);
-adminRoute.get('/users', authenticateAdmin, getUsers);
-//
-adminRoute.post('/service', authenticateAdmin, addService);
-adminRoute.get('/service', authenticateAdmin, getServices);
-adminRoute.delete('/service/:id', authenticateAdmin, deleteService);
-adminRoute.patch('/service/:id', authenticateAdmin, updateService);
-
-adminRoute.get('/category', authenticateAdmin, getCategories);
-adminRoute.post('/category', authenticateAdmin, addCategory);
-adminRoute.delete('/category/:id', authenticateAdmin, deleteCategory);
-adminRoute.patch('/category/:id', authenticateAdmin, updateCategory);
-
-adminRoute.get('/subcategory', authenticateAdmin, getSubCategories);
-adminRoute.post('/subcategory', authenticateAdmin, addSubCategory);
-adminRoute.delete('/subcategory/:id', authenticateAdmin, deleteSubCategory);
-adminRoute.patch('/subcategory/:id', authenticateAdmin, updateSubCategory);
-//service
-// adminRoute.get('/service', authenticateAdmin, getServiceForm);
-// adminRoute.post('/service', authenticateAdmin, addService);
-// adminRoute.patch('/service/:id', authenticateAdmin, editServiceForm);
-
-//category
-// adminRoute.get('/category', authenticateAdmin, getCategoryForm);
-// adminRoute.post('/category', authenticateAdmin, addCategory);
-
-// adminRoute.get('/*', (_, res) => res.redirect('/admin/login'));
+//========= protected ================================
+adminRoute.use(authenticateAdmin);
+//--------- user -------------------------------------
+adminRoute.get('/profile', getAdminProfile);
+adminRoute.patch('/profile', updateAdminProfile);
+adminRoute.get('/users', getUsers);
+//--------- service ----------------------------------
+adminRoute.post('/service', addService);
+adminRoute.get('/service', getServices);
+adminRoute.delete('/service/:id', deleteService);
+adminRoute.patch('/service/:id', updateService);
+//--------- category ---------------------------------
+adminRoute.get('/category', getCategories);
+adminRoute.post('/category', addCategory);
+adminRoute.delete('/category/:id', deleteCategory);
+adminRoute.patch('/category/:id', updateCategory);
+//--------- sub category -----------------------------
+adminRoute.get('/subcategory', getSubCategories);
+adminRoute.post('/subcategory', addSubCategory);
+adminRoute.delete('/subcategory/:id', deleteSubCategory);
+adminRoute.patch('/subcategory/:id', updateSubCategory);
+//--------- vendor -----------------------------------
+// adminRoute.get('/vendor', getSubCategories);
+adminRoute.get('/vendor', getVendors);
+adminRoute.get('/unapprove_vendor', getUnapprovedVendors);
+adminRoute.patch('/appr_vendor/:id', approveVendor);
+adminRoute.patch('/assign_categ/:vendor/:cat', assignCategory);
+adminRoute.patch('/assign_scateg/:vendor/:scat', assignSubCategory);
 
 module.exports = adminRoute;
 

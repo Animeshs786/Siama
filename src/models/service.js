@@ -23,3 +23,6 @@ const service = new mongoose.Schema(
 
 const Service = mongoose.model('Service', service);
 module.exports = Service;
+
+//multiple vendor honge ek service ke
+// vendor: { type: mongoose.Schema.Types.ObjectId, ref: 'Vendor' },

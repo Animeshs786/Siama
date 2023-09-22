@@ -14,6 +14,11 @@ const addSubCategory = require('./subcategory/addSubCategory');
 const getSubCategories = require('./subcategory/getSubCategories');
 const deleteSubCategory = require('./subcategory/deleteSubCategory');
 const updateSubCategory = require('./subcategory/updateSubCategory');
+const getUnapprovedVendors = require('./vendor/getUnapprovedVendors');
+const getVendors = require('./vendor/getVendors');
+const approveVendor = require('./vendor/approveVendor');
+const assignCategory = require('./vendor/assignCategory');
+const assignSubCategory = require('./vendor/assignSubCategory');
 module.exports = {
   loginAdmin,
   getAdminProfile,
@@ -35,4 +40,10 @@ module.exports = {
   getSubCategories,
   deleteSubCategory,
   updateSubCategory,
+
+  getUnapprovedVendors,
+  getVendors,
+  approveVendor,
+  assignCategory,
+  assignSubCategory,
 };
