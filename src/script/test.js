@@ -4,10 +4,10 @@ async function addService() {
   const service = new Service({
     name: 'Home Painting',
     description: 'Testing Service. Description ' + Date.now(),
-    mrp: 1700,
-    selling_price: 1500,
+
+    service_charge: 1500,
     consult_required: true,
-    consult_fee: 100,
+    consult_charge: 100,
     estimate_time: '10 Days',
   });
   await service.save();
@@ -97,3 +97,24 @@ async function addServiceToUserCart(user_id, serv_id) {
 }
 // addServiceToUserCart('64f873f20aab90276f82b428', '64f97d6b3f26cfe7527618af');
 //-----------------------------------------------------
+async function testt() {
+  const Razorpay = require('razorpay');
+  const { RAZOR_KEY_ID, RAZOR_KEY_SECRET } = process.env;
+
+  const razorpay = new Razorpay({
+    key_id: RAZOR_KEY_ID,
+    key_secret: RAZOR_KEY_SECRET,
+  });
+  const order = await razorpay.orders.create({
+    amount: 50000,
+    currency: 'INR',
+    receipt: 'receipt#1', //my id for reference
+    // partial_payment: false,
+    notes: {
+      key1: 'value3',
+      key2: 'value2',
+    },
+  });
+  console.log(order);
+}
+// testt();

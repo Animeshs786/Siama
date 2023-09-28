@@ -1,4 +1,6 @@
+const UserPayment = require('./UserPayment');
 const Admin = require('./admin');
+const Booking = require('./booking');
 const Category = require('./category');
 const InitUser = require('./initUser');
 const Service = require('./service');
@@ -14,4 +16,6 @@ module.exports = {
   Service,
   Admin,
   Vendor,
+  Booking,
+  UserPayment,
 };

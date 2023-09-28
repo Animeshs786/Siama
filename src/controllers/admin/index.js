@@ -19,6 +19,7 @@ const getVendors = require('./vendor/getVendors');
 const approveVendor = require('./vendor/approveVendor');
 const assignCategory = require('./vendor/assignCategory');
 const assignSubCategory = require('./vendor/assignSubCategory');
+const getBookings = require('./booking/getBookings');
 module.exports = {
   loginAdmin,
   getAdminProfile,
@@ -46,4 +47,6 @@ module.exports = {
   approveVendor,
   assignCategory,
   assignSubCategory,
+  //
+  getBookings,
 };

@@ -7,6 +7,32 @@ const states = [
         name: 'Noida',
         value: 'noida',
       },
+      {
+        name: 'Lucknow',
+        value: 'lucknow',
+      },
+      {
+        name: 'Prayagraj',
+        value: 'prayagraj',
+      },
+      {
+        name: 'Waranasi',
+        value: 'waranasi',
+      },
+    ],
+  },
+  {
+    name: 'Gujarat',
+    value: 'gujarat',
+    cities: [
+      {
+        name: 'Ahmedabad',
+        value: 'ahmedabad',
+      },
+      {
+        name: 'Surat',
+        value: 'surat',
+      },
     ],
   },
 ];

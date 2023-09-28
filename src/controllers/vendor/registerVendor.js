@@ -10,10 +10,10 @@ const registerVendor = async (req, res, next) => {
     if (isNaN(phone) || phone.includes('e') || phone.includes('.') || phone.length > 10) {
       throw new ApiError('Invalid phone number.', 400);
     }
-    if (!state) throw new ApiError('State is required', 400);
-    if (!city) throw new ApiError('City is required', 400);
-    if (!isValidState(state)) throw new ApiError('Invalid state value', 400);
-    if (!isValidCity(state, city)) throw new ApiError('Invalid city value', 400);
+    // if (!state) throw new ApiError('State is required', 400);
+    // if (!city) throw new ApiError('City is required', 400);
+    // if (!isValidState(state)) throw new ApiError('Invalid state value', 400);
+    // if (!isValidCity(state, city)) throw new ApiError('Invalid city value', 400);
     if (!email) throw new ApiError('Email is required', 400);
     const result = await Vendor.findOne({ email });
     if (result && result.registered) throw new ApiError('Email is already registered, please login to continue.', 409);
@@ -24,8 +24,8 @@ const registerVendor = async (req, res, next) => {
         phone,
         name,
         email,
-        state,
-        city,
+        // state,
+        // city,
         address,
       });
     }

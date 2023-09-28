@@ -23,7 +23,9 @@ const {
   approveVendor,
   assignCategory,
   assignSubCategory,
+  getBookings,
 } = require('../controllers/admin');
+
 adminRoute.post('/login', loginAdmin);
 //========= protected ================================
 adminRoute.use(authenticateAdmin);
@@ -53,6 +55,9 @@ adminRoute.get('/unapprove_vendor', getUnapprovedVendors);
 adminRoute.patch('/appr_vendor/:id', approveVendor);
 adminRoute.patch('/assign_categ/:vendor/:cat', assignCategory);
 adminRoute.patch('/assign_scateg/:vendor/:scat', assignSubCategory);
+
+//--------- bookings -----------------------------------
+adminRoute.get('/booking', getBookings);
 
 module.exports = adminRoute;
 

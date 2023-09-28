@@ -6,3 +6,11 @@ app.set('views', path.join(__dirname, '../views'));
 
 
 //psql -h <hostname or ip address> -p <port number of remote machine> -d <database name which you want to connect> -U <username of the database server>
+
+user address crud
+vendor serving city and serving category allocation by admin
+booking allocation to vendor
+vendor allocated booking listing
+
+
+later: vendor wallet

@@ -10,7 +10,13 @@ const getServices = async (req, res, next) => {
     const toatal_item = await Service.countDocuments();
     const toatal_page = Math.ceil(toatal_item / limit);
 
-    const services = await Service.find().skip(skip).limit(limit);
+    const services = await Service.find()
+      .populate([
+        { path: 'category', select: 'name' },
+        { path: 'sub_category', select: 'name' },
+      ])
+      .skip(skip)
+      .limit(limit);
 
     return res.status(200).json({
       status: true,

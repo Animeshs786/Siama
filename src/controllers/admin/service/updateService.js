@@ -3,7 +3,7 @@ const fs = require('fs');
 const allowedMimeTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp', 'image/gif'];
 
 const { isValidObjectId } = require('mongoose');
-const { Service } = require('../../../models');
+const { Service, Category, SubCategory } = require('../../../models');
 const { ApiError } = require('../../../errorHandler');
 const { deleteOldImage } = require('../../../utils');
 
@@ -37,33 +37,50 @@ const updateService = async (req, res, next) => {
     try {
       if (error) throw new ApiError(error.message, 400);
       const id = req.params.id;
-      const { name, description, mrp, selling_price, consult_required, consult_online, consult_fee, estimate_time, status } =
-        req.body;
+      const {
+        cat_id,
+        scat_id,
+        name,
+        description,
+        service_mode,
+        service_charge,
+        consult_charge,
+        // consult_required,
+        // consult_online,
+        estimate_time,
+        status,
+      } = req.body;
       if (!isValidObjectId(id)) throw new ApiError('Invalid id', 400);
       const service = await Service.findById(id);
       if (!service) throw new ApiError('Bad Request', 400);
-      if (name) service.name = name;
-      if (description) service.description = description;
-      if (mrp) {
-        if (isNaN(mrp)) throw new ApiError('MRP is invalid', 400);
-        service.mrp = mrp;
-      }
-      if (selling_price) {
-        if (isNaN(selling_price)) throw new ApiError('Invalid selling Price', 400);
-        service.selling_price = selling_price;
+      if (cat_id && cat_id !== service.category) {
+        if (!isValidObjectId(cat_id)) throw new ApiError('Category id is invalid.', 400);
+        const cat = await Category.findById(cat_id);
+        if (!cat) throw new ApiError('Category id is invalid.', 400);
+        service.category = cat_id;
+        service.sub_category = null;
+        if (scat_id) {
+          if (!isValidObjectId(scat_id)) throw new ApiError('Sub Category id is invalid.', 400);
+          const scat = await SubCategory.findById(scat_id, { category: cat_id });
+          if (!scat) throw new ApiError('Sub Category id is invalid.', 400);
+          service.sub_category = scat._id;
+        }
       }
 
-      if (consult_required) {
-        if (consult_required !== 'true' && consult_required !== 'false') throw new ApiError('invalid consult_required', 400);
-        service.consult_required = consult_required === 'true' ? true : false;
+      if (name) service.name = name;
+      if (description) service.description = description;
+      if (service_mode) {
+        if (service_mode !== 'online' && service_mode !== 'onsite') throw new ApiError('service_mode is invalid.', 400);
+        service.service_mode = service_mode;
       }
-      if (consult_online) {
-        if (consult_online !== 'true' && consult_online !== 'false') throw new ApiError('invalid consult_online', 400);
-        service.consult_online = consult_online === 'true' ? true : false;
+      if (service_charge) {
+        if (isNaN(service_charge)) throw new ApiError('Invalid service charge', 400);
+        service.service_charge = service_charge;
       }
-      if (consult_fee) {
-        if (isNaN(consult_fee)) throw new ApiError('consult_fee is invalid', 400);
-        service.consult_fee = consult_fee;
+
+      if (consult_charge) {
+        if (isNaN(consult_charge)) throw new ApiError('consult_charge is invalid', 400);
+        service.consult_charge = consult_charge;
       }
       if (estimate_time) service.estimate_time = estimate_time;
       if (status) {

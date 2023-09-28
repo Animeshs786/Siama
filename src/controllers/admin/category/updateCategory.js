@@ -37,13 +37,13 @@ const updateCategory = async (req, res, next) => {
     try {
       if (error) throw new ApiError(error.message, 400);
       const id = req.params.id;
-      const { name, description, subcategories, services, status, priority } = req.body;
+      const { name, description, /*subcategories, services,*/ status, priority } = req.body;
       if (!isValidObjectId(id)) throw new ApiError('Invalid id', 400);
       const category = await Category.findById(id);
       if (!category) throw new ApiError('Bad Request', 400);
 
       if (name && name !== category.name) {
-        const result = await Category.find({ name });
+        const result = await Category.findOne({ name });
         if (result) throw new ApiError('Category name is already used.', 409);
         category.name = name;
       }
@@ -57,27 +57,28 @@ const updateCategory = async (req, res, next) => {
         if (isNaN(priority) || Number(priority) < 0) throw new ApiError('Invalid priority', 400);
         category.priority = priority;
       }
-      if (subcategories) {
-        try {
-          const sub_cat_ids = JSON.parse(subcategories);
-          if (!Array.isArray(sub_cat_ids)) throw new ApiError('Invalid subcategories value');
-          for (let i = 0; i < sub_cat_ids.length; i++) {
-            const id = sub_cat_ids.at(i);
-            if (!isValidObjectId(id)) throw new ApiError('Invalid subcategory id ' + id, 400);
-          }
-          category.sub_categories = sub_cat_ids;
-        } catch (error) {
-          throw new ApiError('Invalid subcategories value');
-        }
-      }
-      if (services) {
-        const service_ids = services?.split(',') || [];
-        for (let i = 0; i < service_ids.length; i++) {
-          const id = service_ids[i];
-          if (!isValidObjectId(id)) throw new ApiError('Invalid Service id ' + id, 400);
-        }
-        category.services = service_ids;
-      }
+      // if (subcategories) {
+      //   try {
+      //     const sub_cat_ids = JSON.parse(subcategories);
+      //     if (!Array.isArray(sub_cat_ids)) throw new ApiError('Invalid subcategories value');
+      //     for (let i = 0; i < sub_cat_ids.length; i++) {
+      //       const id = sub_cat_ids.at(i);
+      //       if (!isValidObjectId(id)) throw new ApiError('Invalid subcategory id ' + id, 400);
+      //     }
+      //     category.sub_categories = sub_cat_ids;
+      //   } catch (error) {
+      //     throw new ApiError('Invalid subcategories value');
+      //   }
+      // }
+
+      // if (services) {
+      //   const service_ids = services?.split(',') || [];
+      //   for (let i = 0; i < service_ids.length; i++) {
+      //     const id = service_ids[i];
+      //     if (!isValidObjectId(id)) throw new ApiError('Invalid Service id ' + id, 400);
+      //   }
+      //   category.services = service_ids;
+      // }
       if (req.file) {
         await deleteOldImage(category.image);
         const url = process.env.BASE_URL + req.file.path;

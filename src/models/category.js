@@ -6,7 +6,7 @@ const category = new mongoose.Schema(
     image: { type: String, default: '' },
     sub_categories: [{ type: mongoose.Schema.Types.ObjectId, ref: 'SubCategory' }],
     services: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Service' }],
-    priority: { type: Number, default: 0 },
+    priority: { type: Number, default: 0 }, //zero is lowest priority
     status: { type: Boolean, default: true },
   },
   {

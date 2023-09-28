@@ -3,7 +3,7 @@ const fs = require('fs');
 const allowedMimeTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp', 'image/gif'];
 
 const { ApiError } = require('../../../errorHandler');
-const { SubCategory } = require('../../../models');
+const { SubCategory, Category } = require('../../../models');
 const { isValidObjectId } = require('mongoose');
 const { deleteOldImage } = require('../../../utils');
 
@@ -37,14 +37,18 @@ const addSubCategory = async (req, res, next) => {
   upload(req, res, async (error) => {
     try {
       if (error) throw new ApiError(err.message, 400);
-      const { name, description, services, status, priority } = req.body;
+      const { name, cat_id, description, services, status, priority } = req.body;
       const data = {};
 
       if (!name) throw new ApiError('Subcategory name is required.', 400);
-      const cat = await SubCategory.findOne({ name });
-      if (cat) throw new ApiError('Subcategory already Exists', 400);
+      const scat = await SubCategory.findOne({ name });
+      if (scat) throw new ApiError('Subcategory already Exists', 400);
       data.name = name;
-
+      if (!cat_id) throw new ApiError('Category id is required.', 400);
+      if (!isValidObjectId(cat_id)) throw new ApiError('Category id is invalid.', 400);
+      const cat = await Category.findById(cat_id);
+      if (!cat) throw new ApiError('Category id is invalid.', 400);
+      data.category = cat._id;
       if (description) data.description = description;
       if (services) {
         const service_ids = services?.split(',') || [];
@@ -80,3 +84,7 @@ const addSubCategory = async (req, res, next) => {
   });
 };
 module.exports = addSubCategory;
+/*
+cat.sub_categories.push(subcateg._id);
+await cat.save();
+*/
