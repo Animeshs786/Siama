@@ -5,15 +5,20 @@ const { Vendor, SubCategory } = require('../../../models');
 const assignSubCategory = async (req, res, next) => {
   try {
     const vendor_id = req.params.vendor;
-    const scat_id = req.params.scat;
+    const { sub_categories: scat_ids } = req.body;
+    const scat_arr = scat_ids.split(',');
+    for (let i = 0; i < scat_arr.length; i++) {
+      const scat_id = scat_arr[i];
+      if (!isValidObjectId(scat_id)) throw new ApiError(`Invalid sub category ID: ${scat_id}`, 400);
+      const scateg = await SubCategory.findById(scat_id);
+      if (!scateg) throw new ApiError(`Invalid sub category ID: ${scat_id}`, 400);
+    }
     if (!isValidObjectId(vendor_id)) throw new ApiError('Invalid Vendor ID', 400);
-    if (!isValidObjectId(scat_id)) throw new ApiError('Invalid Sub Category ID', 400);
     const vendor = await Vendor.findById(vendor_id);
-    if (!vendor) throw new ApiError('Bad Request', 400);
-    const scat = await SubCategory.findById(scat_id);
-    if (!scat) throw new ApiError('Bad Request', 400);
+    if (!vendor) throw new ApiError('Invalid Vendor ID', 400);
 
-    vendor.sub_categories.push(scat_id);
+    vendor.sub_categories = [...new Set([...scat_arr])];
+    // vendor.sub_categories = [...new Set([...vendor.categories, ...scat_arr])];
     await vendor.save();
     return res.status(201).json({
       status: true,

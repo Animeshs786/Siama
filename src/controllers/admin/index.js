@@ -1,6 +1,6 @@
 const addService = require('./service/addService');
 const getAdminProfile = require('./auth/getAdminProfile');
-const getUsers = require('./getUsers');
+const getUsers = require('./user/getUsers');
 const loginAdmin = require('./auth/loginAdmin');
 const updateAdminProfile = require('./auth/updateAdminProfile');
 const getServices = require('./service/getServices');
@@ -20,12 +20,20 @@ const approveVendor = require('./vendor/approveVendor');
 const assignCategory = require('./vendor/assignCategory');
 const assignSubCategory = require('./vendor/assignSubCategory');
 const getBookings = require('./booking/getBookings');
+const assigneCities = require('./vendor/assignCities');
+const allocateBookingToVendor = require('./booking/allocateBookingToVendor');
+const confirmBooking = require('./booking/confirmBooking');
+const getVendor = require('./vendor/getVendor');
+const getBooking = require('./booking/getBooking');
+const getUserBookings = require('./user/getUserBookings');
+const getVendorBookings = require('./vendor/getVendorBookings');
 module.exports = {
   loginAdmin,
   getAdminProfile,
   updateAdminProfile,
 
   getUsers,
+  getUserBookings,
 
   addService,
   getServices,
@@ -44,9 +52,15 @@ module.exports = {
 
   getUnapprovedVendors,
   getVendors,
+  getVendor,
+  getVendorBookings,
   approveVendor,
   assignCategory,
   assignSubCategory,
+  assigneCities,
   //
   getBookings,
+  getBooking,
+  confirmBooking,
+  allocateBookingToVendor,
 };

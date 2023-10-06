@@ -29,6 +29,8 @@ const payment_webhook = async (req, res, next) => {
         if (booking.booking_status === 'delivered') {
           userPayment.service_charge_paid = true;
           userPayment.payment_status = 'success';
+          booking.service_charge_paid = true;
+          booking.booking_status = 'completed';
         }
       }
 

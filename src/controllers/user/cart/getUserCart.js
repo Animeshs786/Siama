@@ -9,5 +9,4 @@ const getUserCart = async (req, res, next) => {
   }
 };
 module.exports = getUserCart;
-//TODO:
-// service charge can be later decide
+// service charge can be later decide for onsite services that is why total sum is not added

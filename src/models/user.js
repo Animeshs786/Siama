@@ -1,10 +1,6 @@
 const mongoose = require('mongoose');
+const { cartItem } = require('./common');
 const { BASE_URL, DEFAULT_USER_IMG } = process.env;
-const cartItem = new mongoose.Schema({
-  _id: false,
-  service: { type: mongoose.Schema.Types.ObjectId, ref: 'Service' },
-  quantity: { type: Number, default: 1 },
-});
 
 const user = new mongoose.Schema(
   {
@@ -15,9 +11,12 @@ const user = new mongoose.Schema(
     email_verified: { type: Boolean, default: false },
     otp: { type: String, default: '' },
     otp_expiry: { type: Date, default: Date.now },
+    state: { type: String, default: '' },
+    city: { type: String, default: '' },
     address: { type: String, default: '' },
     profile_image: { type: String, default: `${BASE_URL}${DEFAULT_USER_IMG}` },
     cart: [cartItem],
+    saved_address: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Address' }],
   },
   {
     timestamps: {

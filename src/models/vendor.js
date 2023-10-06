@@ -16,11 +16,11 @@ const vendor = new mongoose.Schema(
     otp: { type: String, default: '' },
     otp_expiry: { type: Date, default: Date.now },
     status: { type: Boolean, default: true },
+    wallet: { type: String, default: '0' },
     // services: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Service' }],
-    // assigned by admin
-    categories: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Category' }],
-    // assigned by admin
-    sub_categories: [{ type: mongoose.Schema.Types.ObjectId, ref: 'SubCategory' }],
+    cities: [{ type: mongoose.Schema.Types.ObjectId, ref: 'City' }],
+    categories: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Category' }], // assigned by admin
+    sub_categories: [{ type: mongoose.Schema.Types.ObjectId, ref: 'SubCategory' }], // assigned by admin
   },
   {
     timestamps: {

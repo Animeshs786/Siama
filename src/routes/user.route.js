@@ -15,6 +15,11 @@ const {
   payment_webhook,
   initiatePayment,
   getBookings,
+  getAddress,
+  addAddress,
+  deleteAddress,
+  cancleBooking,
+  getBooking,
 } = require('../controllers/user');
 const authenticateUser = require('../middlewares/authenticateUser');
 
@@ -24,6 +29,9 @@ userRoute.post('/login', userLogin);
 userRoute.post('/verify_otp', verifOtp);
 userRoute.post('/signup', userSignup);
 userRoute.get('/profile', authenticateUser, getUserProfile);
+userRoute.get('/address', authenticateUser, getAddress);
+userRoute.post('/address', authenticateUser, addAddress);
+userRoute.delete('/address/:id', authenticateUser, deleteAddress);
 
 userRoute.get('/category', getAllCategories);
 userRoute.get('/sub_category', getSubCategories);
@@ -37,6 +45,8 @@ userRoute.delete('/cart/:id', authenticateUser, removeCartItem);
 
 userRoute.post('/create_booking', authenticateUser, createBooking);
 userRoute.get('/booking', authenticateUser, getBookings);
+userRoute.get('/booking/:id', authenticateUser, getBooking);
+userRoute.delete('/cancle_booking/:id', authenticateUser, cancleBooking);
 
 //payment
 // userRoute.post('/initiate_payment', authenticateUser, initiatePayment);

@@ -23,15 +23,14 @@ const initiatePayment = async (req, res, next) => {
 
     // const amount = Number(booking.consult_charge) + booking.service_mode === 'online' ? Number(booking.service_charge) : 0;
     let amount = 0;
-    if (!userPayment.consult_charge_paid) amount += Number(userPayment.consult_charge);
+    if (!booking.consult_charge_paid) amount += Number(booking.consult_charge);
 
-    if (userPayment.service_mode === 'online') {
-      if (!userPayment.service_charge_paid) amount += Number(userPayment.service_charge);
+    if (booking.service_mode === 'online') {
+      if (!booking.service_charge_paid) amount += Number(booking.service_charge);
     }
 
-    if (userPayment.service_mode === 'onsite') {
-      if (!userPayment.service_charge_paid && userPayment.booking_status === 'delivered')
-        amount += Number(userPayment.service_charge);
+    if (booking.service_mode === 'onsite') {
+      if (!booking.service_charge_paid && booking.booking_status === 'delivered') amount += Number(booking.service_charge);
     }
 
     if (!amount) throw new ApiError('No amount to pay.', 400);

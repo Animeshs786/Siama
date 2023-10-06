@@ -1,8 +1,13 @@
+const addAddress = require('./address/addAddress');
+const deleteAddress = require('./address/deleteAddress');
+const getAddress = require('./address/getAddress');
 const getUserProfile = require('./auth/getUserProfile');
 const userLogin = require('./auth/userLogin');
 const userSignup = require('./auth/userSignup');
 const verifOtp = require('./auth/verifyOtp');
+const cancleBooking = require('./booking/cancleBooking');
 const createBooking = require('./booking/createBooking');
+const getBooking = require('./booking/getBooking');
 const getBookings = require('./booking/getBookings');
 const addItemToCart = require('./cart/addItemToCart');
 const getUserCart = require('./cart/getUserCart');
@@ -22,6 +27,9 @@ module.exports = {
   verifOtp,
   userSignup,
   getUserProfile,
+  addAddress,
+  deleteAddress,
+  getAddress,
 
   //category and subcategory
   getAllCategories,
@@ -39,7 +47,11 @@ module.exports = {
   updateCartItem,
   //booking
   createBooking,
+  cancleBooking,
   getBookings,
+  getBooking,
+
+  //
   initiatePayment,
   payment_webhook,
 };

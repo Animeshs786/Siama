@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const morgan = require('morgan');
 // const ejs = require('ejs');
 // const session = require('express-session');
 const cors = require('cors');
@@ -10,6 +11,7 @@ const app = express();
 app.use(express.urlencoded({ extended: true, limit: '100kb' }));
 app.use(express.json({ limit: '100kb' }));
 app.use(cors());
+app.use(morgan('dev'));
 
 /*
 app.set('views', path.join(__dirname, '../views'));

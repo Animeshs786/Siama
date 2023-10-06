@@ -5,7 +5,7 @@ const { STATIC_OTP, ACCESS_TOKEN_SECRET } = process.env;
 
 const userSignup = async (req, res, next) => {
   try {
-    let { phone, otp, first_name, last_name, email, address } = req.body;
+    let { phone, otp, first_name, last_name, email, state, city, address } = req.body;
     if (!phone) throw new ApiError('Phone number is required.', 400);
     if (!otp) throw new ApiError('OTP is required.', 400);
     if (!first_name) throw new ApiError('First name is required.', 400);
@@ -26,6 +26,8 @@ const userSignup = async (req, res, next) => {
       first_name,
       last_name,
       email,
+      state: state || '',
+      city: city || '',
     });
     await newUser.save();
     await InitUser.findOneAndDelete({ phone });

@@ -7,10 +7,34 @@ app.set('views', path.join(__dirname, '../views'));
 
 //psql -h <hostname or ip address> -p <port number of remote machine> -d <database name which you want to connect> -U <username of the database server>
 
-user address crud
-vendor serving city and serving category allocation by admin
-booking allocation to vendor
-vendor allocated booking listing
+serving category allocation by admin- done
+view booking admin - done
+booking allocation to vendor - done
+booking listing user - done
+check status/booking deatails user - done
+cancle booking user - done
+vendor serving city allocation - done
+view allocated booking vendor - done
+update booking status vendor - done
+address schema change for state and city - done
+state and city schema - data saved for state and cities - done
+upload invoice for particular booking api - done
+
+
+vendor update profile - status update enable disabel
+register vendor api changes
+registerVendor state city not applied: should be applied
+
+
 
 
 later: vendor wallet
+
+Note:
+if user deleted his saved address, we remove it from his array but not from address Schema
+because it's id is being used in somewhere else i.e. booking
+its solution is to only make schema not models but in create booking api jatin sir wants to
+give only id of the saved address
+i can also make changes according to that, i can get the user and get his saved address by id
+then extract and save all the Details of address in booking  
+

@@ -1,4 +1,4 @@
-const { Category, SubCategory, Service, User } = require('../models');
+const { User } = require('../models');
 
 async function addService() {
   const service = new Service({
@@ -98,23 +98,41 @@ async function addServiceToUserCart(user_id, serv_id) {
 // addServiceToUserCart('64f873f20aab90276f82b428', '64f97d6b3f26cfe7527618af');
 //-----------------------------------------------------
 async function testt() {
-  const Razorpay = require('razorpay');
-  const { RAZOR_KEY_ID, RAZOR_KEY_SECRET } = process.env;
+  const states = data;
 
-  const razorpay = new Razorpay({
-    key_id: RAZOR_KEY_ID,
-    key_secret: RAZOR_KEY_SECRET,
-  });
-  const order = await razorpay.orders.create({
-    amount: 50000,
-    currency: 'INR',
-    receipt: 'receipt#1', //my id for reference
-    // partial_payment: false,
-    notes: {
-      key1: 'value3',
-      key2: 'value2',
-    },
-  });
-  console.log(order);
+  try {
+    for (let i = 0; i < states.length; i++) {
+      console.log('saving state ', i + 1);
+      const state = states[i];
+      const newstate = new State({
+        name: state.name,
+        value: state.name
+          .split(' ')
+          .map((str) => str.toLowerCase())
+          .join('_'),
+        state_code: state.state_code,
+      });
+      await newstate.save();
+      if (state.cities.length) {
+        for (let j = 0; j < state.cities.length; j++) {
+          console.log('saving city ', i + 1, j + 1);
+          const city = state.cities[j];
+          const newcity = new City({
+            state: newstate._id,
+            name: city.name,
+            value: city.name
+              .split(' ')
+              .map((str) => str.toLowerCase())
+              .join('_'),
+          });
+          await newcity.save();
+        }
+      }
+    }
+    console.log('Data Saved.');
+  } catch (error) {
+    console.log(error.message);
+    await City.deleteMany();
+    await State.deleteMany();
+  }
 }
-// testt();
