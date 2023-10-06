@@ -42,7 +42,7 @@ adminRoute.patch('/profile', updateAdminProfile);
 
 //--------- user -------------------------------------
 adminRoute.get('/users', getUsers);
-adminRoute.get('/users/bookings', getUserBookings);
+adminRoute.post('/users/bookings', getUserBookings);
 
 //--------- service ----------------------------------
 adminRoute.post('/service', addService);
@@ -65,7 +65,7 @@ adminRoute.patch('/subcategory/:id', updateSubCategory);
 //--------- vendor -----------------------------------
 adminRoute.get('/vendor', getVendors); //should be /vendors
 adminRoute.get('/vendor/:id', getVendor); //should be /vendors/:id
-adminRoute.get('/vendors/bookings', getVendorBookings);
+adminRoute.post('/vendors/bookings', getVendorBookings);
 adminRoute.get('/unapprove_vendor', getUnapprovedVendors);
 adminRoute.patch('/appr_vendor/:id', approveVendor);
 adminRoute.patch('/assign_categ/:vendor', assignCategory);
