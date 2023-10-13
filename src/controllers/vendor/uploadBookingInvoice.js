@@ -3,6 +3,7 @@ const fs = require('fs');
 const { ApiError } = require('../../errorHandler');
 const { isValidObjectId } = require('mongoose');
 const { Booking } = require('../../models');
+const { deleteOldFile } = require('../../utils');
 const allowedMimeTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp'];
 
 const storage = multer.diskStorage({
@@ -45,7 +46,7 @@ const uploadBookingInvoice = async (req, res, next) => {
       await booking.save();
       return res.status(200).json({ status: true, message: 'Invoice uploaded' });
     } catch (error) {
-      deleteOldImage(process.env.BASE_URL + req.file?.path);
+      deleteOldFile(process.env.BASE_URL + req.file?.path);
       next(error);
     }
   });

@@ -5,7 +5,7 @@ const allowedMimeTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp', 
 const { isValidObjectId } = require('mongoose');
 const { Category, SubCategory } = require('../../../models');
 const { ApiError } = require('../../../errorHandler');
-const { deleteOldImage } = require('../../../utils');
+const { deleteOldFile } = require('../../../utils');
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -70,7 +70,7 @@ const updateSubCategory = async (req, res, next) => {
       //   subcateg.services = service_ids;
       // }
       if (req.file) {
-        await deleteOldImage(subcateg.image);
+        await deleteOldFile(subcateg.image);
         const url = process.env.BASE_URL + req.file.path;
         subcateg.image = url;
       }
@@ -96,7 +96,7 @@ const allowedMimeTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp', 
 const { isValidObjectId } = require('mongoose');
 const { Category, SubCategory } = require('../../../models');
 const { ApiError } = require('../../../errorHandler');
-const { deleteOldImage } = require('../../../utils');
+const { deleteOldFile } = require('../../../utils');
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -165,7 +165,7 @@ const updateSubCategory = async (req, res, next) => {
 
     
       if (req.file) {
-        await deleteOldImage(subcateg.image);
+        await deleteOldFile(subcateg.image);
         const url = process.env.BASE_URL + req.file.path;
         subcateg.image = url;
       }

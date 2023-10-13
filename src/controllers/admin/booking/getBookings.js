@@ -3,7 +3,7 @@ const { Booking } = require('../../../models');
 const getBookings = async (req, res, next) => {
   try {
     const bookings = await Booking.find().populate([
-      { path: 'service' },
+      { path: 'service', populate: { path: 'category', select: 'name' } },
       { path: 'address' },
       { path: 'user', select: '-otp -otp_expiry -cart -saved_address' },
     ]);
@@ -20,3 +20,6 @@ const getBookings = async (req, res, next) => {
 };
 
 module.exports = getBookings;
+// { path: 'service', populate: 'category' },
+// { path: 'service', populate: {path:"category", select:'name'} },
+// { path: 'service', populate: [{ path: 'category', select: 'name' }] },

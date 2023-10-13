@@ -27,6 +27,11 @@ const getVendor = require('./vendor/getVendor');
 const getBooking = require('./booking/getBooking');
 const getUserBookings = require('./user/getUserBookings');
 const getVendorBookings = require('./vendor/getVendorBookings');
+const addBanner = require('./banner/addBanner');
+const getBanners = require('./banner/getBanners');
+const getBanner = require('./banner/getBanner');
+const deleteBanner = require('./banner/deleteBanner');
+const updateBanner = require('./banner/updateBanner');
 module.exports = {
   loginAdmin,
   getAdminProfile,
@@ -34,6 +39,13 @@ module.exports = {
 
   getUsers,
   getUserBookings,
+
+  //---- banner -----
+  addBanner,
+  getBanners,
+  getBanner,
+  deleteBanner,
+  updateBanner,
 
   addService,
   getServices,

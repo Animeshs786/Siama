@@ -9,7 +9,7 @@ const isValidMongoId = (id) => {
   return mongoose.Types.ObjectId.isValid(id);
 };
 
-async function deleteOldImage(url) {
+async function deleteOldFile(url) {
   try {
     if (url) {
       const unlinkFile = util.promisify(fs.unlink);
@@ -19,9 +19,10 @@ async function deleteOldImage(url) {
     console.log(error.message);
   }
 }
+
 module.exports = {
   getOtp,
   isValidMongoId,
   verifyAccessToken,
-  deleteOldImage,
+  deleteOldFile,
 };

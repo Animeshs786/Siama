@@ -18,3 +18,6 @@ const { PORT, BASE_URL } = process.env;
     process.exit(1);
   }
 })();
+/**
+ * TODO: file upload common function
+ */

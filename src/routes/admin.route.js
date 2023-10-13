@@ -31,6 +31,11 @@ const {
   getBooking,
   getUserBookings,
   getVendorBookings,
+  addBanner,
+  getBanners,
+  getBanner,
+  deleteBanner,
+  updateBanner,
 } = require('../controllers/admin');
 
 adminRoute.post('/login', loginAdmin);
@@ -43,6 +48,13 @@ adminRoute.patch('/profile', updateAdminProfile);
 //--------- user -------------------------------------
 adminRoute.get('/users', getUsers);
 adminRoute.post('/users/bookings', getUserBookings);
+
+//--------- Banner ----------------------------------
+adminRoute.get('/banners', getBanners);
+adminRoute.get('/banners/:id', getBanner);
+adminRoute.post('/banners', addBanner);
+adminRoute.patch('/banners/:id', updateBanner);
+adminRoute.delete('/banners/:id', deleteBanner);
 
 //--------- service ----------------------------------
 adminRoute.post('/service', addService);
@@ -73,8 +85,8 @@ adminRoute.patch('/assign_scateg/:vendor', assignSubCategory);
 adminRoute.patch('/assign_cities/:vendor', assigneCities);
 
 //--------- bookings -----------------------------------
-adminRoute.get('/booking', getBookings); //should be /bookings
-adminRoute.get('/booking/:id', getBooking); ////should be /bookings/:id
+adminRoute.get('/bookings', getBookings); //should be /bookings
+adminRoute.get('/bookings/:id', getBooking); ////should be /bookings/:id
 adminRoute.patch('/confirm_booking/:id', confirmBooking);
 adminRoute.post('/allocate_booking', allocateBookingToVendor);
 

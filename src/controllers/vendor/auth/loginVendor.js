@@ -1,15 +1,11 @@
-const { ApiError } = require('../../errorHandler');
-const { Vendor } = require('../../models');
-const { getOtp } = require('../../utils');
+const { ApiError } = require('../../../errorHandler');
+const { Vendor } = require('../../../models');
+const { getOtp } = require('../../../utils');
 
 const loginVendor = async (req, res, next) => {
   try {
     let { phone } = req.body;
     if (!phone) throw new ApiError('Phone number in required.', 400);
-    phone = String(phone).trim();
-    if (isNaN(phone) || phone.includes('e') || phone.includes('.') || phone.length > 10) {
-      throw new ApiError('Invalid phone number.', 400);
-    }
     const vendor = await Vendor.findOne({ phone });
     if (!vendor) throw new ApiError('Invalid Phone number', 400);
     vendor.otp = getOtp();

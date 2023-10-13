@@ -1,18 +1,16 @@
 const multer = require('multer');
 const fs = require('fs');
-const util = require('util');
 const { ApiError } = require('../../../errorHandler');
-const bcrypt = require('bcrypt');
-const { Admin } = require('../../../models');
+const { User, State, City } = require('../../../models');
 const { deleteOldFile } = require('../../../utils');
 const allowedMimeTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp', 'image/gif'];
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    if (!fs.existsSync('public/admin')) {
-      fs.mkdirSync('public/admin', { recursive: true });
+    if (!fs.existsSync('public/user')) {
+      fs.mkdirSync('public/user', { recursive: true });
     }
-    cb(null, 'public/admin');
+    cb(null, 'public/user');
   },
   filename: function (req, file, cb) {
     const { originalname } = file;
@@ -21,46 +19,51 @@ const storage = multer.diskStorage({
     if (extI !== -1) {
       fileExt = originalname.substring(extI).toLowerCase();
     }
-    const fileName = `admin-${Date.now()}${fileExt}`;
+    const fileName = `user-${Date.now()}${fileExt}`;
     cb(null, fileName);
   },
 });
 const upload = multer({
   storage: storage,
-  limits: { fileSize: 10 * 1024 * 1024 },
   fileFilter: (req, file, cb) => {
     allowedMimeTypes.includes(file.mimetype) ? cb(null, true) : cb(new ApiError('Invalid image type', 400));
   },
 }).single('profile_image');
 
-const updateAdminProfile = async (req, res, next) => {
+const updateUserProfile = async (req, res, next) => {
   upload(req, res, async (error) => {
     try {
       if (error) throw new ApiError(err.message, 400);
-      const admin = req.admin;
-      const { name, email, phone, password } = req.body;
+      // const admin = req.admin;
+      const user = req.user;
+      let { first_name, last_name, state, city, pincode, gst_no, address } = req.body;
       const updateData = {};
-      if (name) updateData.name = name;
-      if (email) updateData.email = email;
-      if (phone) updateData.phone = phone;
-      if (password) {
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(password, salt);
-        updateData.password = hashedPassword;
+      if (first_name) updateData.first_name = first_name;
+      if (last_name) updateData.last_name = last_name;
+      if (state) {
+        const stateRes = await State.findById(state);
+        updateData.state = stateRes.name;
       }
+      if (city) {
+        const cityRes = await City.findById(city);
+        updateData.city = cityRes.name;
+      }
+      if (pincode) updateData.pincode = pincode;
+      if (gst_no) updateData.gst_no = gst_no;
+      if (address) updateData.address = address;
       if (req.file) {
-        await deleteOldFile(admin.profile_image);
+        await deleteOldFile(user.profile_image);
         const url = process.env.BASE_URL + req.file.path;
         updateData.profile_image = url;
       }
-      const newAdmin = await Admin.findByIdAndUpdate(admin._id, updateData, { new: true }).select(
-        '-password -created_at -updatedAt -__v'
+      const updatedUser = await User.findByIdAndUpdate(user._id, updateData, { new: true }).select(
+        '-otp -otp_expiry -created_at -updatedAt -__v'
       );
       return res.status(200).json({
         status: true,
-        message: 'Admin profile updated.',
+        message: 'User profile updated.',
         data: {
-          admin: newAdmin,
+          user: updatedUser,
         },
       });
     } catch (error) {
@@ -68,4 +71,5 @@ const updateAdminProfile = async (req, res, next) => {
     }
   });
 };
-module.exports = updateAdminProfile;
+
+module.exports = updateUserProfile;

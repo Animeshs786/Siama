@@ -2,6 +2,7 @@ const addAddress = require('./address/addAddress');
 const deleteAddress = require('./address/deleteAddress');
 const getAddress = require('./address/getAddress');
 const getUserProfile = require('./auth/getUserProfile');
+const updateUserProfile = require('./auth/updateUserProfile');
 const userLogin = require('./auth/userLogin');
 const userSignup = require('./auth/userSignup');
 const verifOtp = require('./auth/verifyOtp');
@@ -14,6 +15,7 @@ const getUserCart = require('./cart/getUserCart');
 const removeCartItem = require('./cart/removeCartItem');
 const updateCartItem = require('./cart/updateCartItem');
 const getAllCategories = require('./getters/getAllCategories');
+const getBanners = require('./getters/getBanners');
 const getServiceDetails = require('./getters/getServiceDetails');
 const getServices = require('./getters/getServices');
 const getServicesByCategory = require('./getters/getServicesByCategory');
@@ -22,11 +24,14 @@ const initiatePayment = require('./payment/initiatePayment');
 const payment_webhook = require('./payment/payment_webhook');
 
 module.exports = {
+  getBanners,
+
   //authentication
   userLogin,
   verifOtp,
   userSignup,
   getUserProfile,
+  updateUserProfile,
   addAddress,
   deleteAddress,
   getAddress,

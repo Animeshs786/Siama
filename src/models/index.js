@@ -1,6 +1,7 @@
 const UserPayment = require('./UserPayment');
 const Address = require('./address');
 const Admin = require('./admin');
+const Banner = require('./banner');
 const Booking = require('./booking');
 const Category = require('./category');
 const City = require('./city');
@@ -24,4 +25,5 @@ module.exports = {
   Address,
   State,
   City,
+  Banner,
 };

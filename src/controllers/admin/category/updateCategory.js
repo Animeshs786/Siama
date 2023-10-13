@@ -5,7 +5,7 @@ const allowedMimeTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp', 
 const { isValidObjectId } = require('mongoose');
 const { Service, Category } = require('../../../models');
 const { ApiError } = require('../../../errorHandler');
-const { deleteOldImage } = require('../../../utils');
+const { deleteOldFile } = require('../../../utils');
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -80,7 +80,7 @@ const updateCategory = async (req, res, next) => {
       //   category.services = service_ids;
       // }
       if (req.file) {
-        await deleteOldImage(category.image);
+        await deleteOldFile(category.image);
         const url = process.env.BASE_URL + req.file.path;
         category.image = url;
       }

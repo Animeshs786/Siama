@@ -5,7 +5,7 @@ const allowedMimeTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp', 
 const { ApiError } = require('../../../errorHandler');
 const { SubCategory, Category } = require('../../../models');
 const { isValidObjectId } = require('mongoose');
-const { deleteOldImage } = require('../../../utils');
+const { deleteOldFile } = require('../../../utils');
 
 // upload setup destination, filename, field
 const storage = multer.diskStorage({
@@ -78,7 +78,7 @@ const addSubCategory = async (req, res, next) => {
         },
       });
     } catch (error) {
-      deleteOldImage(process.env.BASE_URL + req.file?.path);
+      deleteOldFile(process.env.BASE_URL + req.file?.path);
       next(error);
     }
   });

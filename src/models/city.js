@@ -11,5 +11,8 @@ const city = new mongoose.Schema(
     collection: 'cities',
   }
 );
+city.index({ state: 1 });
+
 const City = mongoose.model('City', city);
+// City.createIndexes({ state: 1 });
 module.exports = City;

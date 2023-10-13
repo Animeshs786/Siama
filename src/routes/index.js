@@ -9,7 +9,9 @@ const vendorRoute = require('./vendor.route');
 const appRoutes = (app) => {
   app.use('/public', express.static('public'));
   // app.get('/', (req, res) => res.status(301).redirect('/api/ping'));
-  app.get('/api/ping', (_, res) => res.status(200).json({ status: true, message: 'Ping Successfully.', timestamp: new Date() }));
+  app.get('/api/ping', (_, res) =>
+    res.status(200).json({ status: true, message: 'Ping Successfully.', timestamp: new Date() })
+  );
   app.use('/api/static', staticRoute);
   app.use('/api/user', userRoute);
   //admin panel

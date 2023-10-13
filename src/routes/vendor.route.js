@@ -6,16 +6,26 @@ const {
   getAllocatedBookings,
   updateBookingStatus,
   uploadBookingInvoice,
+  getVendorPhoneOtp,
+  verifyVendorPhone,
+  verifyVendorMailId,
+  getVerifyEmailLink,
+  vendorUploadDocuments,
 } = require('../controllers/vendor');
 const { authenticateVendor } = require('../middlewares');
 
 const vendorRoute = require('express').Router();
 
+vendorRoute.post('/getPhoneOtp', getVendorPhoneOtp);
+vendorRoute.post('/verifyPhone', verifyVendorPhone);
 vendorRoute.post('/register', registerVendor);
 vendorRoute.post('/login', loginVendor);
 vendorRoute.post('/verify_otp', verifyVendorOtp);
 vendorRoute.get('/profile', authenticateVendor, getVendorProfile);
-vendorRoute.get('/assign_cat_scat', authenticateVendor, getVendorProfile);
+
+vendorRoute.get('/get_verify_email_link', authenticateVendor, getVerifyEmailLink);
+vendorRoute.get('/verify_email/:token', authenticateVendor, verifyVendorMailId);
+vendorRoute.post('/upload_documents', authenticateVendor, vendorUploadDocuments);
 
 vendorRoute.get('/allocated_bookings', authenticateVendor, getAllocatedBookings);
 vendorRoute.patch('/update_booking_status', authenticateVendor, updateBookingStatus);
