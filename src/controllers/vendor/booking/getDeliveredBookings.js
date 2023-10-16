@@ -1,8 +1,11 @@
-const { Booking } = require('../../models');
+const { Booking } = require('../../../models');
 
-const getAllocatedBookings = async (req, res, next) => {
+const getDeliveredBookings = async (req, res, next) => {
   try {
-    const bookings = await Booking.find({ vendor: req.vendor._id }).populate([
+    const bookings = await Booking.find({
+      vendor: req.vendor._id,
+      booking_status: 'delivered',
+    }).populate([
       { path: 'service' },
       { path: 'address' },
       { path: 'user', select: '-otp -otp_expiry -cart -saved_address' },
@@ -13,4 +16,4 @@ const getAllocatedBookings = async (req, res, next) => {
   }
 };
 
-module.exports = getAllocatedBookings;
+module.exports = getDeliveredBookings;

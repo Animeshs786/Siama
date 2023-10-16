@@ -15,6 +15,7 @@ const booking = new mongoose.Schema(
     //initiated, booked,cancelled, confirm, allocated,[rescheduled] ,inprogress, hold, delivered, completed
     booking_status: { type: String, default: 'initiated' },
     vendor: { type: mongoose.Schema.Types.ObjectId, ref: 'Vendor' },
+    invoice_image: { type: String, default: '' },
   },
   {
     timestamp: { createdAt: 'created_at', updatedAt: 'updated_at' },

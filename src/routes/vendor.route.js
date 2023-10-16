@@ -11,6 +11,8 @@ const {
   verifyVendorMailId,
   getVerifyEmailLink,
   vendorUploadDocuments,
+  getDeliveredBookings,
+  getOpenBookings,
 } = require('../controllers/vendor');
 const { authenticateVendor } = require('../middlewares');
 
@@ -28,6 +30,8 @@ vendorRoute.get('/verify_email/:token', authenticateVendor, verifyVendorMailId);
 vendorRoute.post('/upload_documents', authenticateVendor, vendorUploadDocuments);
 
 vendorRoute.get('/allocated_bookings', authenticateVendor, getAllocatedBookings);
+vendorRoute.get('/delivered_bookings', authenticateVendor, getDeliveredBookings);
+vendorRoute.get('/open_bookings', authenticateVendor, getOpenBookings);
 vendorRoute.patch('/update_booking_status', authenticateVendor, updateBookingStatus);
 vendorRoute.post('/upload_booking_invoice', authenticateVendor, uploadBookingInvoice);
 

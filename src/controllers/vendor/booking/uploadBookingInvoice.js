@@ -1,10 +1,10 @@
 const multer = require('multer');
 const fs = require('fs');
-const { ApiError } = require('../../errorHandler');
 const { isValidObjectId } = require('mongoose');
-const { Booking } = require('../../models');
-const { deleteOldFile } = require('../../utils');
-const allowedMimeTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp'];
+const { Booking } = require('../../../models');
+const { deleteOldFile } = require('../../../utils');
+const { ApiError } = require('../../../errorHandler');
+const allowedMimeTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp', 'application/pdf'];
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -40,6 +40,7 @@ const uploadBookingInvoice = async (req, res, next) => {
       if (!isValidObjectId(booking_id)) throw new ApiError('booking_id is invalid.', 400);
       const booking = await Booking.findById(booking_id);
       if (!booking) throw new ApiError('booking_id is invalid.', 404);
+      if (booking.invoice_image) throw new ApiError('Already uploaded', 400);
       if (!req.file) throw new ApiError('invoice_image is required.', 400);
 
       booking.invoice_image = process.env.BASE_URL + req.file.path;
