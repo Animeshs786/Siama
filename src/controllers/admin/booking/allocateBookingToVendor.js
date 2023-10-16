@@ -18,6 +18,8 @@ const allocateBookingToVendor = async (req, res, next) => {
 
     booking.vendor = vendor._id;
     booking.booking_status = 'allocated';
+    booking.admin_status = 'allocated';
+    booking.status_info = 'Admin allocated booking to the vendor.';
     await booking.save();
     return res.status(200).json({ status: true, message: 'Vendor allocated' });
   } catch (error) {
@@ -26,3 +28,4 @@ const allocateBookingToVendor = async (req, res, next) => {
 };
 
 module.exports = allocateBookingToVendor;
+//TODO: create a inbox message for vendor about booking allocation

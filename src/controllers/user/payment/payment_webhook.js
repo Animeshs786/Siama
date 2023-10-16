@@ -31,11 +31,14 @@ const payment_webhook = async (req, res, next) => {
           userPayment.payment_status = 'success';
           booking.service_charge_paid = true;
           booking.booking_status = 'completed';
+          booking.user_status = 'completed';
         }
       }
 
       if (booking.booking_status === 'initiated') {
         booking.booking_status = 'booked';
+        booking.user_status = 'booked';
+        booking.status_info = 'User has made the payment and service has been booked.';
         userPayment.booking_status = 'booked';
       }
     } else {
@@ -43,8 +46,8 @@ const payment_webhook = async (req, res, next) => {
     }
     await userPayment.save();
     await booking.save();
-    console.log('user payment\n', userPayment);
-    console.log('booking\n', booking);
+    // console.log('user payment\n', userPayment);
+    // console.log('booking\n', booking);
     return res.status(200).end();
   } catch (error) {
     next(error);

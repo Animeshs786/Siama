@@ -70,7 +70,8 @@ const updateService = async (req, res, next) => {
       if (name) service.name = name;
       if (description) service.description = description;
       if (service_mode) {
-        if (service_mode !== 'online' && service_mode !== 'onsite') throw new ApiError('service_mode is invalid.', 400);
+        if (service_mode !== 'online' && service_mode !== 'onsite' && service_mode !== 'both')
+          throw new ApiError('service_mode is invalid.', 400);
         service.service_mode = service_mode;
       }
       if (service_charge) {

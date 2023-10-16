@@ -36,6 +36,8 @@ const {
   getBanner,
   deleteBanner,
   updateBanner,
+  editVendor,
+  getCallbackRequests,
 } = require('../controllers/admin');
 
 adminRoute.post('/login', loginAdmin);
@@ -77,6 +79,7 @@ adminRoute.patch('/subcategory/:id', updateSubCategory);
 //--------- vendor -----------------------------------
 adminRoute.get('/vendor', getVendors); //should be /vendors
 adminRoute.get('/vendor/:id', getVendor); //should be /vendors/:id
+adminRoute.patch('/vendor/:id', editVendor); //should be /vendors/:id
 adminRoute.post('/vendors/bookings', getVendorBookings);
 adminRoute.get('/unapprove_vendor', getUnapprovedVendors);
 adminRoute.patch('/appr_vendor/:id', approveVendor);
@@ -90,8 +93,9 @@ adminRoute.get('/bookings/:id', getBooking); ////should be /bookings/:id
 adminRoute.patch('/confirm_booking/:id', confirmBooking);
 adminRoute.post('/allocate_booking', allocateBookingToVendor);
 
-module.exports = adminRoute;
+adminRoute.get('/callback_requests', getCallbackRequests);
 
+module.exports = adminRoute;
 /*
 const salt = await bcrypt.genSalt(10);
 const hashedPassword = await bcrypt.hash(password, salt);

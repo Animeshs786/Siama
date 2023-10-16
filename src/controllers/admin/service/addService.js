@@ -35,8 +35,17 @@ const addService = async (req, res, next) => {
   upload(req, res, async (error) => {
     try {
       if (error) throw new ApiError(err.message, 400);
-      const { cat_id, scat_id, name, description, service_mode, service_charge, consult_charge, estimate_time, status } =
-        req.body;
+      const {
+        cat_id,
+        scat_id,
+        name,
+        description,
+        service_mode,
+        service_charge,
+        consult_charge,
+        estimate_time,
+        status,
+      } = req.body;
 
       if (!name) throw new ApiError('Service name is required.', 400);
       if (!cat_id) throw new ApiError('Category id is required.', 400);
@@ -50,7 +59,8 @@ const addService = async (req, res, next) => {
       if (!scat) throw new ApiError('Sub Category id is invalid.', 400);
 
       if (!service_mode) throw new ApiError('service_mode is required.', 400);
-      if (service_mode !== 'online' && service_mode !== 'onsite') throw new ApiError('service_mode is invalid.', 400);
+      if (service_mode !== 'online' && service_mode !== 'onsite' && service_mode !== 'both')
+        throw new ApiError('service_mode is invalid.', 400);
       if (!service_charge) throw new ApiError('Service charge is required.', 400);
       if (isNaN(service_charge)) throw new ApiError('Invalid service charge', 400);
 

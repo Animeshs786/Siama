@@ -3,6 +3,7 @@ const Address = require('./address');
 const Admin = require('./admin');
 const Banner = require('./banner');
 const Booking = require('./booking');
+const CallbackRequest = require('./callbackRequest');
 const Category = require('./category');
 const City = require('./city');
 const InitUser = require('./initUser');
@@ -26,4 +27,5 @@ module.exports = {
   State,
   City,
   Banner,
+  CallbackRequest,
 };

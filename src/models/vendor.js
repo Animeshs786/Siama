@@ -27,6 +27,8 @@ const vendor = new mongoose.Schema(
     city: { type: String, default: '' },
     city_id: { type: String, default: '' },
     country: { type: String, default: '' },
+    pincode: { type: String, default: '' },
+
     gst_no: { type: String, default: '' },
     pan_no: { type: String, default: '' },
     aadhar_no: { type: String, default: '' },

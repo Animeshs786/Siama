@@ -2,7 +2,7 @@ const { isValidObjectId } = require('mongoose');
 const { ApiError } = require('../../../errorHandler');
 const { Booking } = require('../../../models');
 
-const confirmBooking = async (req, res, next) => {
+const rejectBooking = async (req, res, next) => {
   try {
     const id = req.params.id;
     const { status, reason } = req.body;
@@ -23,4 +23,4 @@ const confirmBooking = async (req, res, next) => {
   }
 };
 
-module.exports = confirmBooking;
+module.exports = rejectBooking;

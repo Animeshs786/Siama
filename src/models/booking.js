@@ -12,10 +12,15 @@ const booking = new mongoose.Schema(
     consult_charge: { type: String, default: '0' }, //only for onsite mode
     consult_charge_paid: { type: Boolean, default: false }, // when onsite consult charge will be pre pay
     service_charge_paid: { type: Boolean, default: false }, // offline post pay, online pre pay
-    //initiated, booked,cancelled, confirm, allocated,[rescheduled] ,inprogress, hold, delivered, completed
-    booking_status: { type: String, default: 'initiated' },
     vendor: { type: mongoose.Schema.Types.ObjectId, ref: 'Vendor' },
     invoice_image: { type: String, default: '' },
+
+    // [rescheduled], booked (on first payment of onsite), completed(final payment of onsite, or marked by admin delivered)
+    booking_status: { type: String, default: 'initiated' },
+    user_status: { type: String, default: 'initiated' }, //initiated, booked, cancelled, completed
+    admin_status: { type: String, default: '' }, // admin_rejected, confirmed, allocated,
+    vendor_status: { type: String, default: '' }, //vendor_rejected, inprogress, hold, delivered
+    status_info: { type: String, default: '' },
   },
   {
     timestamp: { createdAt: 'created_at', updatedAt: 'updated_at' },

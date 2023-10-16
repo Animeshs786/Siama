@@ -13,6 +13,7 @@ const {
   vendorUploadDocuments,
   getDeliveredBookings,
   getOpenBookings,
+  updateVendorProfile,
 } = require('../controllers/vendor');
 const { authenticateVendor } = require('../middlewares');
 
@@ -24,6 +25,7 @@ vendorRoute.post('/register', registerVendor);
 vendorRoute.post('/login', loginVendor);
 vendorRoute.post('/verify_otp', verifyVendorOtp);
 vendorRoute.get('/profile', authenticateVendor, getVendorProfile);
+vendorRoute.patch('/profile', authenticateVendor, updateVendorProfile);
 
 vendorRoute.get('/get_verify_email_link', authenticateVendor, getVerifyEmailLink);
 vendorRoute.get('/verify_email/:token', authenticateVendor, verifyVendorMailId);

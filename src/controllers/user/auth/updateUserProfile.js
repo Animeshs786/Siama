@@ -67,6 +67,7 @@ const updateUserProfile = async (req, res, next) => {
         },
       });
     } catch (error) {
+      if (req.file) deleteOldFile(process.env.BASE_URL + req.file.path);
       next(error);
     }
   });

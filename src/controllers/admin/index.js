@@ -32,6 +32,8 @@ const getBanners = require('./banner/getBanners');
 const getBanner = require('./banner/getBanner');
 const deleteBanner = require('./banner/deleteBanner');
 const updateBanner = require('./banner/updateBanner');
+const editVendor = require('./vendor/editVendor');
+const getCallbackRequests = require('./booking/getCallbackRequests');
 module.exports = {
   loginAdmin,
   getAdminProfile,
@@ -65,6 +67,7 @@ module.exports = {
   getUnapprovedVendors,
   getVendors,
   getVendor,
+  editVendor,
   getVendorBookings,
   approveVendor,
   assignCategory,
@@ -75,4 +78,6 @@ module.exports = {
   getBooking,
   confirmBooking,
   allocateBookingToVendor,
+
+  getCallbackRequests,
 };

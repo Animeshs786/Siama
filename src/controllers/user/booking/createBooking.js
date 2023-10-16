@@ -4,15 +4,24 @@ const { Service, Booking, UserPayment } = require('../../../models');
 
 const createBooking = async (req, res, next) => {
   try {
-    const { service_id, address, scheduled_date } = req.body;
+    const { service_id, address, scheduled_date, service_mode } = req.body;
     const user = req.user;
     if (!isValidObjectId(service_id)) throw new ApiError('Invalid service id', 400);
     const service = await Service.findById(service_id);
     if (!service) throw new ApiError('Bad Request', 400);
-    if (service.service_mode === 'onsite') {
-      if (!address) throw new ApiError('Address is required for onsite service', 400);
-      if (!isValidObjectId(address)) throw new ApiError('Invalid Address id', 400);
+
+    // if (service.service_mode === 'onsite') {
+    //   if (!address) throw new ApiError('Address is required for onsite service', 400);
+    //   if (!isValidObjectId(address)) throw new ApiError('Invalid Address id', 400);
+    // }
+    if (service.service_mode === 'both') {
+      if (!service_mode || (service_mode !== 'online' && service_mode !== 'onsite'))
+        throw new ApiError('Invalid Service mode', 400);
+
+      if (service_mode === 'onsite' && !address) throw new ApiError('Address is required for onsite service', 400);
+      if (address && !isValidObjectId(address)) throw new ApiError('Invalid Address id', 400);
     }
+
     if (!scheduled_date) throw new ApiError('Schedule Date is required.', 400);
     if (isNaN(new Date(scheduled_date).getTime())) throw new ApiError('Invalid Scheduled Date.', 400);
     const booking = new Booking({
@@ -21,12 +30,14 @@ const createBooking = async (req, res, next) => {
       address: address || null,
       scheduled_date,
       estimate_time: service.estimate_time,
-      service_mode: service.service_mode,
+      service_mode: service.service_mode !== 'both' ? service.service_mode : service_mode,
       service_charge: service.service_charge,
       consult_charge: service.consult_charge,
       consult_charge_paid: Boolean(service.consult_charge === '0'),
       service_charge_paid: false,
       booking_status: 'initiated',
+      user_status: 'initiated',
+      status_info: 'User has initiated a booking request.',
     });
     //online => on time all payment
     //onsite => consult_charge then service_charge

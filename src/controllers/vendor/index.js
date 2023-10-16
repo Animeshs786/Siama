@@ -7,12 +7,13 @@ const verifyVendorPhone = require('./auth/verifyVendorPhone');
 const verifyVendorMailId = require('./auth/verifyVendorMailId');
 const getVerifyEmailLink = require('./auth/getVerifyEmailLink');
 
-const updateBookingStatus = require('./updateBookingStatus');
+const updateBookingStatus = require('./booking/updateBookingStatus');
 const uploadBookingInvoice = require('./booking/uploadBookingInvoice');
 const vendorUploadDocuments = require('./auth/vendorUploadDocuments');
 const getAllocatedBookings = require('./booking/getAllocatedBookings');
 const getDeliveredBookings = require('./booking/getDeliveredBookings');
 const getOpenBookings = require('./booking/getOpenBookings');
+const updateVendorProfile = require('./auth/updateVendorProfile');
 
 module.exports = {
   //auth
@@ -22,6 +23,7 @@ module.exports = {
   verifyVendorOtp,
   loginVendor,
   getVendorProfile,
+  updateVendorProfile,
   getVerifyEmailLink,
   verifyVendorMailId,
   vendorUploadDocuments,

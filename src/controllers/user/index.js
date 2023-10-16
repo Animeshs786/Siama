@@ -10,6 +10,7 @@ const cancleBooking = require('./booking/cancleBooking');
 const createBooking = require('./booking/createBooking');
 const getBooking = require('./booking/getBooking');
 const getBookings = require('./booking/getBookings');
+const requestCallback = require('./booking/requestCallback');
 const addItemToCart = require('./cart/addItemToCart');
 const getUserCart = require('./cart/getUserCart');
 const removeCartItem = require('./cart/removeCartItem');
@@ -56,6 +57,7 @@ module.exports = {
   getBookings,
   getBooking,
 
+  requestCallback,
   //
   initiatePayment,
   payment_webhook,

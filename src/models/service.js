@@ -6,7 +6,7 @@ const service = new mongoose.Schema(
     name: { type: String, trim: true, required: true },
     description: { type: String, default: '' },
     image: { type: String, default: '' },
-    service_mode: { type: String, default: 'online' }, // online,onsite
+    service_mode: { type: String, default: 'online' }, // online,onsite,both
     service_charge: { type: String, default: '0' },
     consult_charge: { type: String, default: '0' }, //only for onsite mode
     estimate_time: { type: String, default: '' }, //in minutes

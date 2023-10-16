@@ -30,10 +30,11 @@ const initiatePayment = async (req, res, next) => {
     }
 
     if (booking.service_mode === 'onsite') {
-      if (!booking.service_charge_paid && booking.booking_status === 'delivered') amount += Number(booking.service_charge);
+      if (!booking.service_charge_paid && booking.booking_status === 'delivered')
+        amount += Number(booking.service_charge);
     }
 
-    if (!amount) throw new ApiError('No amount to pay.', 400);
+    if (!amount) throw new ApiError(`No amount to pay. [test: ${amount}]`, 400);
     console.log('amount', amount);
     const totalAmount = (amount + amount * 0.18).toFixed(2) * 100; //added gst 18%
     console.log('amount', totalAmount);
