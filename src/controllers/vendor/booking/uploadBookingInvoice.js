@@ -34,7 +34,7 @@ const upload = multer({
 const uploadBookingInvoice = async (req, res, next) => {
   upload(req, res, async (error) => {
     try {
-      if (error) throw new ApiError(err.message, 400);
+      if (error) throw new ApiError(error.message, 400);
       const { booking_id } = req.body;
       if (!booking_id) throw new ApiError('booking_id is required.', 400);
       if (!isValidObjectId(booking_id)) throw new ApiError('booking_id is invalid.', 400);

@@ -23,6 +23,8 @@ const {
   updateUserProfile,
   getBanners,
   requestCallback,
+  addBookingReview,
+  requestService,
 } = require('../controllers/user');
 const authenticateUser = require('../middlewares/authenticateUser');
 
@@ -58,8 +60,10 @@ userRoute.post('/create_booking', authenticateUser, createBooking);
 userRoute.get('/booking', authenticateUser, getBookings);
 userRoute.get('/booking/:id', authenticateUser, getBooking);
 userRoute.delete('/cancle_booking/:id', authenticateUser, cancleBooking);
+userRoute.post('/booking/review', authenticateUser, addBookingReview);
 
 userRoute.post('/request_callback', authenticateUser, requestCallback);
+userRoute.post('/service_request', authenticateUser, requestService);
 
 //payment
 // userRoute.post('/initiate_payment', authenticateUser, initiatePayment);

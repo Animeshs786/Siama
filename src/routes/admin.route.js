@@ -38,6 +38,9 @@ const {
   updateBanner,
   editVendor,
   getCallbackRequests,
+  getVendorDocs,
+  verifyVendorDocs,
+  getServiceRequests,
 } = require('../controllers/admin');
 
 adminRoute.post('/login', loginAdmin);
@@ -80,13 +83,14 @@ adminRoute.patch('/subcategory/:id', updateSubCategory);
 adminRoute.get('/vendor', getVendors); //should be /vendors
 adminRoute.get('/vendor/:id', getVendor); //should be /vendors/:id
 adminRoute.patch('/vendor/:id', editVendor); //should be /vendors/:id
+adminRoute.patch('/appr_vendor/:id', approveVendor);
 adminRoute.post('/vendors/bookings', getVendorBookings);
 adminRoute.get('/unapprove_vendor', getUnapprovedVendors);
-adminRoute.patch('/appr_vendor/:id', approveVendor);
 adminRoute.patch('/assign_categ/:vendor', assignCategory);
 adminRoute.patch('/assign_scateg/:vendor', assignSubCategory);
 adminRoute.patch('/assign_cities/:vendor', assigneCities);
-
+adminRoute.get('/vendors/:id/docs', getVendorDocs);
+adminRoute.patch('/vendors/:id/docs', verifyVendorDocs);
 //--------- bookings -----------------------------------
 adminRoute.get('/bookings', getBookings); //should be /bookings
 adminRoute.get('/bookings/:id', getBooking); ////should be /bookings/:id
@@ -94,6 +98,7 @@ adminRoute.patch('/confirm_booking/:id', confirmBooking);
 adminRoute.post('/allocate_booking', allocateBookingToVendor);
 
 adminRoute.get('/callback_requests', getCallbackRequests);
+adminRoute.get('/service_requests', getServiceRequests);
 
 module.exports = adminRoute;
 /*

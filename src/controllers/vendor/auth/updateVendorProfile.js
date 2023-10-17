@@ -33,7 +33,7 @@ const upload = multer({
 const updateVendorProfile = async (req, res, next) => {
   upload(req, res, async (error) => {
     try {
-      if (error) throw new ApiError(err.message, 400);
+      if (error) throw new ApiError(error.message, 400);
       const vendor = req.vendor;
       if (!vendor) throw new ApiError('invalid id', 400);
       let {

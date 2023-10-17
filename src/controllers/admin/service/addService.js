@@ -34,7 +34,7 @@ const upload = multer({
 const addService = async (req, res, next) => {
   upload(req, res, async (error) => {
     try {
-      if (error) throw new ApiError(err.message, 400);
+      if (error) throw new ApiError(error.message, 400);
       const {
         cat_id,
         scat_id,

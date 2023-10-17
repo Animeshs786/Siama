@@ -9,8 +9,9 @@ const requestCallback = async (req, res, next) => {
     if (!isValidObjectId(service_id)) throw new ApiError('Invalid service id', 400);
     const service = await Service.findById(service_id);
     if (!service) throw new ApiError('Invalid service id', 400);
-    const isAlready = await CallbackRequest.find({ user: user._id, service: service._id });
-    if (isAlready) return res.status(200).json({ status: true, message: 'Callback request is sent' });
+    const isAlready = await CallbackRequest.findOne({ user: user._id, service: service._id });
+    if (isAlready)
+      return res.status(200).json({ status: true, message: 'Callback request is sent', test: { isAlready } });
 
     const callbackReq = new CallbackRequest({
       user: user._id,
@@ -20,7 +21,7 @@ const requestCallback = async (req, res, next) => {
       address: address || '',
     });
     await callbackReq.save();
-    return res.status(200).json({ status: true, message: 'Callback request is sent' });
+    return res.status(200).json({ status: true, message: 'Callback request is sent', test: { callbackReq } });
   } catch (error) {
     next(error);
   }

@@ -17,7 +17,10 @@ const confirmBooking = async (req, res, next) => {
       booking.status_info = status === 'false' ? reason : '';
       await booking.save();
     }
-    return res.status(200).json({ status: true, message: 'Booking Confirmed' });
+    return res.status(200).json({
+      status: true,
+      message: `Booking ${status === 'true' ? 'confirmed' : 'rejected'}`,
+    });
   } catch (error) {
     next(error);
   }

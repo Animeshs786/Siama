@@ -32,7 +32,7 @@ const upload = multer({
 
 const addBanner = async (req, res, next) => {
   upload(req, res, async (error) => {
-    if (error) throw new ApiError(err.message, 400);
+    if (error) throw new ApiError(error.message, 400);
     try {
       const { title, hyperlink, priority, status } = req.body;
       const data = {};

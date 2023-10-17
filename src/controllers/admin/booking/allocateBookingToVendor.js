@@ -1,6 +1,6 @@
 const { isValidObjectId } = require('mongoose');
 const { ApiError } = require('../../../errorHandler');
-const { Booking, Vendor } = require('../../../models');
+const { Booking, Vendor, VendorInbox } = require('../../../models');
 
 const allocateBookingToVendor = async (req, res, next) => {
   try {
@@ -21,6 +21,13 @@ const allocateBookingToVendor = async (req, res, next) => {
     booking.admin_status = 'allocated';
     booking.status_info = 'Admin allocated booking to the vendor.';
     await booking.save();
+    const inbox = new VendorInbox({
+      vendor: vendor._id,
+      type: 'booking',
+      title: 'Booking allocated',
+      text: 'Admin has allocated a booking.',
+    });
+    await inbox.save();
     return res.status(200).json({ status: true, message: 'Vendor allocated' });
   } catch (error) {
     next(error);

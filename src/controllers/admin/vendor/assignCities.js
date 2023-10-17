@@ -1,6 +1,6 @@
 const { isValidObjectId } = require('mongoose');
 const { ApiError } = require('../../../errorHandler');
-const { Vendor, City } = require('../../../models');
+const { Vendor, City, VendorInbox } = require('../../../models');
 
 const assigneCities = async (req, res, next) => {
   try {
@@ -17,9 +17,14 @@ const assigneCities = async (req, res, next) => {
     const vendor = await Vendor.findById(vendor_id);
     if (!vendor) throw new ApiError('Invalid Vendor ID', 400);
     vendor.cities = [...new Set(city_arr)]; //:TODO
-    // vendor.cities = [...new Set([...city_arr])];
-    // vendor.cities = [...new Set([...vendor.cities, ...city_arr])];
     await vendor.save();
+    const inbox = new VendorInbox({
+      vendor: vendor._id,
+      type: 'admin',
+      title: 'City assigned',
+      text: 'Admin has assigned/updated your serving cities.',
+    });
+    await inbox.save();
     return res.status(200).json({
       status: true,
       message: 'Serving cities is assigned.',

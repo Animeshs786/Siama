@@ -1,15 +1,43 @@
 const { isValidObjectId } = require('mongoose');
-const { Category, Service } = require('../../../models');
+const { Service } = require('../../../models');
 const { ApiError } = require('../../../errorHandler');
 
 const getServices = async (req, res, next) => {
   try {
-    const { service_mode } = req.query;
+    const { categs, scategs, search, service_mode } = req.query;
     const findObj = {};
-    if (service_mode) {
-      if (service_mode !== 'online' && service_mode !== 'onsite') throw new ApiError('Invalid Service mode', 400);
-      findObj.service_mode = service_mode;
+    let categ_arr = [];
+    if (categs) {
+      categ_arr = categs.split(',');
+      for (let i = 0; i < categ_arr.length; i++) {
+        const id = categ_arr[i];
+        if (!isValidObjectId(id)) throw new ApiError('Invalid Category Id', 400);
+      }
+      findObj.category = { $in: categ_arr };
     }
+
+    let scateg_arr = [];
+    if (scategs) {
+      scateg_arr = scategs.split(',');
+      for (let i = 0; i < scateg_arr.length; i++) {
+        const id = scateg_arr[i];
+        if (!isValidObjectId(id)) throw new ApiError('Invalid sub category id', 400);
+      }
+      findObj.sub_category = { $in: scateg_arr };
+    }
+
+    if (search) findObj.name = { $regex: search, $options: 'i' };
+
+    if (service_mode) {
+      const modes = ['online', 'onsite', 'both'];
+      if (!modes.includes(service_mode)) throw new ApiError('Invalid Service mode', 400);
+      let findModes = [];
+      if (service_mode === 'online') findModes = ['online', 'both'];
+      if (service_mode === 'onsite') findModes = ['onsite', 'both'];
+      if (service_mode === 'both') findModes = ['both'];
+      findObj.service_mode = { $in: findModes };
+    }
+
     const services = await Service.find(findObj);
     return res.status(200).json({
       status: true,
@@ -21,6 +49,7 @@ const getServices = async (req, res, next) => {
   }
 };
 module.exports = getServices;
+
 /*
 try {
   const { categs, mode } = req.query;

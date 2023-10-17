@@ -14,6 +14,11 @@ const getAllocatedBookings = require('./booking/getAllocatedBookings');
 const getDeliveredBookings = require('./booking/getDeliveredBookings');
 const getOpenBookings = require('./booking/getOpenBookings');
 const updateVendorProfile = require('./auth/updateVendorProfile');
+const getInbox = require('./inbox/getInbox');
+const updateBankDetails = require('./finance/updateBankDetails');
+const getInvoices = require('./finance/getInvoices');
+const getAllTexes = require('./finance/getAllTaxes');
+const getCustomerReviews = require('./getCustomerReview');
 
 module.exports = {
   //auth
@@ -33,4 +38,10 @@ module.exports = {
   getOpenBookings,
   updateBookingStatus,
   uploadBookingInvoice,
+
+  getInbox,
+  updateBankDetails,
+  getInvoices,
+  getAllTexes,
 };
+getCustomerReviews;

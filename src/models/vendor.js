@@ -7,6 +7,14 @@ const document = new mongoose.Schema({
   file: { type: String, default: '' },
   verified: { type: Boolean, default: false },
 });
+const bank_details = new mongoose.Schema({
+  _id: false,
+  bank_name: { type: String, default: '' },
+  acc_holder_name: { type: String, default: '' },
+  acc_no: { type: String, default: '' },
+  ifsc: { type: String, default: '' },
+  branch: { type: String, default: '' },
+});
 
 const vendor = new mongoose.Schema(
   {
@@ -43,6 +51,7 @@ const vendor = new mongoose.Schema(
     categories: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Category' }], // assigned by admin
     sub_categories: [{ type: mongoose.Schema.Types.ObjectId, ref: 'SubCategory' }], // assigned by admin
     documents: [document],
+    bank_details: bank_details,
   },
   {
     timestamps: {

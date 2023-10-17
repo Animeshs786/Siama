@@ -14,7 +14,12 @@ const {
   getDeliveredBookings,
   getOpenBookings,
   updateVendorProfile,
+  getInbox,
+  updateBankDetails,
+  getInvoices,
+  getAllTexes,
 } = require('../controllers/vendor');
+const getCustomerReviews = require('../controllers/vendor/getCustomerReview');
 const { authenticateVendor } = require('../middlewares');
 
 const vendorRoute = require('express').Router();
@@ -36,5 +41,13 @@ vendorRoute.get('/delivered_bookings', authenticateVendor, getDeliveredBookings)
 vendorRoute.get('/open_bookings', authenticateVendor, getOpenBookings);
 vendorRoute.patch('/update_booking_status', authenticateVendor, updateBookingStatus);
 vendorRoute.post('/upload_booking_invoice', authenticateVendor, uploadBookingInvoice);
+
+vendorRoute.get('/inbox', authenticateVendor, getInbox);
+
+vendorRoute.patch('/bank_details', authenticateVendor, updateBankDetails);
+vendorRoute.get('/invoices', authenticateVendor, getInvoices);
+vendorRoute.get('/taxes', authenticateVendor, getAllTexes);
+
+vendorRoute.get('/customer_reviews', authenticateVendor, getCustomerReviews);
 
 module.exports = vendorRoute;

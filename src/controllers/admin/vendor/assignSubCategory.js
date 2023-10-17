@@ -1,6 +1,6 @@
 const { isValidObjectId } = require('mongoose');
 const { ApiError } = require('../../../errorHandler');
-const { Vendor, SubCategory } = require('../../../models');
+const { Vendor, SubCategory, VendorInbox } = require('../../../models');
 
 const assignSubCategory = async (req, res, next) => {
   try {
@@ -17,9 +17,16 @@ const assignSubCategory = async (req, res, next) => {
     const vendor = await Vendor.findById(vendor_id);
     if (!vendor) throw new ApiError('Invalid Vendor ID', 400);
 
-    vendor.sub_categories = [...new Set([...scat_arr])];
+    vendor.sub_categories = [...new Set(scat_arr)];
     // vendor.sub_categories = [...new Set([...vendor.categories, ...scat_arr])];
     await vendor.save();
+    const inbox = new VendorInbox({
+      vendor: vendor._id,
+      type: 'admin',
+      title: 'Sub category assigned',
+      text: 'Admin has assigned/updated your serving sub categories.',
+    });
+    await inbox.save();
     return res.status(201).json({
       status: true,
       message: 'Sub Category is assigned.',

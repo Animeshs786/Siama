@@ -33,7 +33,7 @@ const upload = multer({
 const updateUserProfile = async (req, res, next) => {
   upload(req, res, async (error) => {
     try {
-      if (error) throw new ApiError(err.message, 400);
+      if (error) throw new ApiError(error.message, 400);
       // const admin = req.admin;
       const user = req.user;
       let { first_name, last_name, state, city, pincode, gst_no, address } = req.body;
@@ -43,10 +43,12 @@ const updateUserProfile = async (req, res, next) => {
       if (state) {
         const stateRes = await State.findById(state);
         updateData.state = stateRes.name;
+        updateData.state_id = stateRes._id;
       }
       if (city) {
         const cityRes = await City.findById(city);
         updateData.city = cityRes.name;
+        updateData.city_id = cityRes._id;
       }
       if (pincode) updateData.pincode = pincode;
       if (gst_no) updateData.gst_no = gst_no;

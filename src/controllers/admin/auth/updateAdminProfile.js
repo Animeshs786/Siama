@@ -36,7 +36,7 @@ const upload = multer({
 const updateAdminProfile = async (req, res, next) => {
   upload(req, res, async (error) => {
     try {
-      if (error) throw new ApiError(err.message, 400);
+      if (error) throw new ApiError(error.message, 400);
       const admin = req.admin;
       const { name, email, phone, password } = req.body;
       const updateData = {};

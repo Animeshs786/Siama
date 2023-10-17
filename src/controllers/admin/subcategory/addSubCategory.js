@@ -36,7 +36,7 @@ const upload = multer({
 const addSubCategory = async (req, res, next) => {
   upload(req, res, async (error) => {
     try {
-      if (error) throw new ApiError(err.message, 400);
+      if (error) throw new ApiError(error.message, 400);
       const { name, cat_id, description, services, status, priority } = req.body;
       const data = {};
 
