@@ -1,7 +1,7 @@
 const { isValidObjectId } = require('mongoose');
 const { ApiError } = require('../../../errorHandler');
 const { Vendor, State, City } = require('../../../models');
-const { BASE_URL, EMAIL_TOKEN_SECRET } = process.env;
+const { BASE_URL, ACCESS_TOKEN_SECRET, EMAIL_TOKEN_SECRET } = process.env;
 const jwt = require('jsonwebtoken');
 
 const registerVendor = async (req, res, next) => {
@@ -57,12 +57,17 @@ const registerVendor = async (req, res, next) => {
       aadhar_no,
       registered: true,
     });
-    const email_token = jwt.sign({ id: vendor._id, phone: vendor.phone }, EMAIL_TOKEN_SECRET);
+    const access_token = jwt.sign({ id: vendor._id, phone: vendor.phone }, ACCESS_TOKEN_SECRET);
 
+    const email_token = jwt.sign({ id: vendor._id, phone: vendor.phone }, EMAIL_TOKEN_SECRET);
     //send email verification link to mail
     return res.status(200).json({
       status: true,
       message: 'Registered Successfully',
+      data: {
+        token: access_token,
+        vendor: vendor,
+      },
       testObj: {
         email_verification_link: `${BASE_URL}api/vendor/verify_email/${email_token}`,
       },

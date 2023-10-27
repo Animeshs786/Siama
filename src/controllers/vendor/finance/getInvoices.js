@@ -7,7 +7,8 @@ const getInvoices = async (req, res, next) => {
     //   .select('invoice_image booking_status');
     const result = await Booking.aggregate([
       { $match: { vendor: req.vendor._id } },
-      { $project: { _id: 'booking_id', invoice_image: 1, booking_status: 1 } },
+      { $addFields: { booking_id: '$_id' } },
+      { $project: { booking_id: 1, invoice_image: 1, booking_status: 1 } },
       { $sort: { created_at: -1 } },
     ]);
 

@@ -27,3 +27,13 @@
    2. `width` - width of rectangle
 
 ===========================================
+
+GIT
+
+clone
+new branch
+change
+git push origin newbranch
+
+git pull origin main
+delete newbranch

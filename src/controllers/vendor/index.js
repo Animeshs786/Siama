@@ -19,6 +19,7 @@ const updateBankDetails = require('./finance/updateBankDetails');
 const getInvoices = require('./finance/getInvoices');
 const getAllTexes = require('./finance/getAllTaxes');
 const getCustomerReviews = require('./getCustomerReview');
+const vendorUploadDocument = require('./auth/vendorUploadDocument');
 
 module.exports = {
   //auth
@@ -32,6 +33,7 @@ module.exports = {
   getVerifyEmailLink,
   verifyVendorMailId,
   vendorUploadDocuments,
+  vendorUploadDocument,
 
   getAllocatedBookings,
   getDeliveredBookings,
@@ -43,5 +45,6 @@ module.exports = {
   updateBankDetails,
   getInvoices,
   getAllTexes,
+
+  getCustomerReviews,
 };
-getCustomerReviews;

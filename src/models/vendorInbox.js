@@ -19,3 +19,5 @@ const vendorInbox = new mongoose.Schema(
 
 const VendorInbox = mongoose.model('VendorInbox', vendorInbox);
 module.exports = VendorInbox;
+
+// TODO: opened and delete api

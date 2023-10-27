@@ -18,8 +18,9 @@ const {
   updateBankDetails,
   getInvoices,
   getAllTexes,
+  vendorUploadDocument,
+  getCustomerReviews,
 } = require('../controllers/vendor');
-const getCustomerReviews = require('../controllers/vendor/getCustomerReview');
 const { authenticateVendor } = require('../middlewares');
 
 const vendorRoute = require('express').Router();
@@ -34,7 +35,9 @@ vendorRoute.patch('/profile', authenticateVendor, updateVendorProfile);
 
 vendorRoute.get('/get_verify_email_link', authenticateVendor, getVerifyEmailLink);
 vendorRoute.get('/verify_email/:token', authenticateVendor, verifyVendorMailId);
+
 vendorRoute.post('/upload_documents', authenticateVendor, vendorUploadDocuments);
+vendorRoute.post('/upload_documents/:doc', authenticateVendor, vendorUploadDocument);
 
 vendorRoute.get('/allocated_bookings', authenticateVendor, getAllocatedBookings);
 vendorRoute.get('/delivered_bookings', authenticateVendor, getDeliveredBookings);

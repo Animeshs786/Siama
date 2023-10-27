@@ -24,6 +24,8 @@ const verifyVendorDocs = async (req, res, next) => {
         text: reason,
       });
       await inbox.save();
+      vendor.documents.splice(i, 1);
+      await vendor.save();
       return res.status(200).json({ status: true, message: 'Status updated' });
     }
 
