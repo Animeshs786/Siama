@@ -37,9 +37,12 @@ const getCallbackRequests = require('./booking/getCallbackRequests');
 const getVendorDocs = require('./vendor/getVendorDocs');
 const verifyVendorDocs = require('./vendor/verifyVendorDocs');
 const getServiceRequests = require('./service/getServiceRequests');
+const getAdminOtp = require('./auth/getAdminOtp');
+const uploadUserInvoice = require('./booking/uploadUserInvoice');
 
 module.exports = {
   loginAdmin,
+  getAdminOtp,
   getAdminProfile,
   updateAdminProfile,
 
@@ -79,12 +82,15 @@ module.exports = {
   assignSubCategory,
   assigneCities,
   verifyVendorDocs,
-  //
+
+  //------ booking -------
   getBookings,
   getBooking,
   confirmBooking,
   allocateBookingToVendor,
+  uploadUserInvoice,
 
+  //----- requests --------
   getCallbackRequests,
   getServiceRequests,
 };

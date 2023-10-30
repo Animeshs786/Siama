@@ -5,6 +5,7 @@ const callbackRequest = new mongoose.Schema(
     name: { type: String, default: '' },
     phone: { type: String, default: '' },
     address: { type: String, default: '' },
+    description: { type: String, default: '' },
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     service: { type: mongoose.Schema.Types.ObjectId, ref: 'Service' },
     status: { type: Boolean, default: true },

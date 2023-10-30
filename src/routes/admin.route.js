@@ -41,9 +41,12 @@ const {
   getVendorDocs,
   verifyVendorDocs,
   getServiceRequests,
+  getAdminOtp,
+  uploadUserInvoice,
 } = require('../controllers/admin');
 
 adminRoute.post('/login', loginAdmin);
+adminRoute.post('/get_otp', getAdminOtp);
 //========= protected ================================
 adminRoute.use(authenticateAdmin);
 //--------- auth -------------------------------------
@@ -96,7 +99,9 @@ adminRoute.get('/bookings', getBookings); //should be /bookings
 adminRoute.get('/bookings/:id', getBooking); ////should be /bookings/:id
 adminRoute.patch('/confirm_booking/:id', confirmBooking);
 adminRoute.post('/allocate_booking', allocateBookingToVendor);
+adminRoute.post('/upload_user_invoice', uploadUserInvoice);
 
+//-------------- requests -----------------------------------
 adminRoute.get('/callback_requests', getCallbackRequests);
 adminRoute.get('/service_requests', getServiceRequests);
 

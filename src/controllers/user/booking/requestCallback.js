@@ -5,7 +5,7 @@ const { ApiError } = require('../../../errorHandler');
 const requestCallback = async (req, res, next) => {
   try {
     const user = req.user;
-    const { service_id, name, phone, address } = req.body;
+    const { service_id, name, phone, address, description } = req.body;
     if (!isValidObjectId(service_id)) throw new ApiError('Invalid service id', 400);
     const service = await Service.findById(service_id);
     if (!service) throw new ApiError('Invalid service id', 400);
@@ -19,6 +19,7 @@ const requestCallback = async (req, res, next) => {
       name: name || '',
       phone: phone || '',
       address: address || '',
+      description: description || '',
     });
     await callbackReq.save();
     return res.status(200).json({ status: true, message: 'Callback request is sent', test: { callbackReq } });

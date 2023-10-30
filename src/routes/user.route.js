@@ -50,11 +50,9 @@ userRoute.get('/services', getServices);
 userRoute.get('/services_by_categ', getServicesByCategory);
 userRoute.get('/service/:id', getServiceDetails);
 
-//
-
-userRoute.get('/cart', authenticateUser, getUserCart);
-userRoute.post('/cart/:id', authenticateUser, addItemToCart);
-userRoute.delete('/cart/:id', authenticateUser, removeCartItem);
+// userRoute.get('/cart', authenticateUser, getUserCart);
+// userRoute.post('/cart/:id', authenticateUser, addItemToCart);
+// userRoute.delete('/cart/:id', authenticateUser, removeCartItem);
 
 userRoute.post('/create_booking', authenticateUser, createBooking);
 userRoute.get('/booking', authenticateUser, getBookings);

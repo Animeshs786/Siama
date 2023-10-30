@@ -15,10 +15,11 @@ const addBookingReview = async (req, res, next) => {
       throw new ApiError('Invalid rating value', 400);
     const isReview = await CustomerReview.findOne({ user: req.user._id, booking });
     if (isReview) throw new ApiError('Alredy added', 400);
+    console.log('review', bookingRes.toJSON());
     const new_review = new CustomerReview({
       user: req.user._id,
       booking: booking,
-      vendor: booking.vendor || null,
+      vendor: bookingRes.vendor,
       rating,
       review: review || '',
     });

@@ -14,7 +14,7 @@ const booking = new mongoose.Schema(
     service_charge_paid: { type: Boolean, default: false }, // offline post pay, online pre pay
     vendor: { type: mongoose.Schema.Types.ObjectId, ref: 'Vendor' },
     invoice_image: { type: String, default: '' },
-
+    user_invoice: { type: String, default: '' },
     // [rescheduled], booked (on first payment of onsite), completed(final payment of onsite, or marked by admin delivered)
     booking_status: { type: String, default: 'initiated' },
     user_status: { type: String, default: 'initiated' }, //initiated, booked, cancelled, completed

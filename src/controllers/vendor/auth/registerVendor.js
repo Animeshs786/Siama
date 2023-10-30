@@ -6,8 +6,22 @@ const jwt = require('jsonwebtoken');
 
 const registerVendor = async (req, res, next) => {
   try {
-    let { phone, name, email, company, building, street, locality, state, city, country, gst_no, pan_no, aadhar_no } =
-      req.body;
+    let {
+      phone,
+      name,
+      email,
+      company,
+      building,
+      street,
+      locality,
+      state,
+      city,
+      country,
+      pincode,
+      gst_no,
+      pan_no,
+      aadhar_no,
+    } = req.body;
 
     if (!phone) throw new ApiError('Phone number is required.', 400);
     if (!email) throw new ApiError('Email is required', 400);
@@ -35,6 +49,7 @@ const registerVendor = async (req, res, next) => {
     if (!cityRes) throw new ApiError('city id invalid', 400);
 
     if (!country) throw new ApiError('country is required', 400);
+    if (!pincode) throw new ApiError('pincode is required', 400);
     if (!gst_no) throw new ApiError('gst_no is required', 400);
     if (!pan_no) throw new ApiError('pan_no is required', 400);
     if (!aadhar_no) throw new ApiError('aadhar_no is required', 400);
@@ -52,6 +67,7 @@ const registerVendor = async (req, res, next) => {
       city: cityRes.name,
       city_id: cityRes._id,
       country,
+      pincode,
       gst_no,
       pan_no,
       aadhar_no,
