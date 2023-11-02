@@ -43,6 +43,8 @@ const {
   getServiceRequests,
   getAdminOtp,
   uploadUserInvoice,
+  getConsults,
+  setConsultResolved,
 } = require('../controllers/admin');
 
 adminRoute.post('/login', loginAdmin);
@@ -94,12 +96,16 @@ adminRoute.patch('/assign_scateg/:vendor', assignSubCategory);
 adminRoute.patch('/assign_cities/:vendor', assigneCities);
 adminRoute.get('/vendors/:id/docs', getVendorDocs);
 adminRoute.patch('/vendors/:id/docs', verifyVendorDocs);
-//--------- bookings -----------------------------------
+//---- bookings ----
 adminRoute.get('/bookings', getBookings); //should be /bookings
 adminRoute.get('/bookings/:id', getBooking); ////should be /bookings/:id
 adminRoute.patch('/confirm_booking/:id', confirmBooking);
 adminRoute.post('/allocate_booking', allocateBookingToVendor);
 adminRoute.post('/upload_user_invoice', uploadUserInvoice);
+
+//---- consult ----
+adminRoute.get('/consults', getConsults);
+adminRoute.patch('/consult_resolved/:id', setConsultResolved);
 
 //-------------- requests -----------------------------------
 adminRoute.get('/callback_requests', getCallbackRequests);

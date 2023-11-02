@@ -1,54 +1,73 @@
 const { ApiError } = require('../../../errorHandler');
-const { Booking, UserPayment } = require('../../../models');
+const { Booking, UserPayment, Consult, ConsultPayment } = require('../../../models');
 
 const payment_webhook = async (req, res, next) => {
   try {
     const order = req?.body?.payload?.order?.entity;
     //find booking and user payment usering order recipt id
     if (!order) throw new ApiError('Bad Request: No Order Found', 400);
-    const booking = await Booking.findById(order.receipt);
-    if (!booking) throw new ApiError('Bad Request: No Booking Found');
-    const userPayment = await UserPayment.findOne({ booking: order.receipt });
-    if (!userPayment) throw new ApiError('Bad Request: No User Payment Found');
-    if (userPayment.consult_charge_paid && userPayment.service_charge_paid) return res.status(200).end();
+    const [type, receipt] = order.receipt.split('-');
 
-    if (order.status === 'paid' && !order.due) {
-      //online service payment
-      if (booking.service_mode === 'online') {
-        userPayment.consult_charge_paid = true;
-        userPayment.service_charge_paid = true;
-        booking.consult_charge_paid = true;
-        booking.service_charge_paid = true;
-        userPayment.payment_status = 'success';
-      }
-      //onsite serevice payment
-      if (booking.service_mode === 'onsite') {
-        userPayment.consult_charge_paid = true;
-        booking.consult_charge_paid = true;
-        userPayment.payment_status = 'due';
-        if (booking.booking_status === 'delivered') {
-          userPayment.service_charge_paid = true;
-          userPayment.payment_status = 'success';
-          booking.service_charge_paid = true;
-          booking.booking_status = 'completed';
-          booking.user_status = 'completed';
-        }
-      }
+    if (type === 'consult') {
+      console.log('booking webhook called');
+      const consult = await Consult.findById(receipt);
+      if (!consult) throw new ApiError('Bad Request: No Consult Found');
+      const consultPayment = await ConsultPayment.findOne({ consult: receipt });
+      if (!consultPayment) throw new ApiError('Bad Request: No Consult Payment Found');
+      if (consultPayment.payment_status === 'success') return res.status(200).end();
 
-      if (booking.booking_status === 'initiated') {
-        booking.booking_status = 'booked';
-        booking.user_status = 'booked';
-        booking.status_info = 'User has made the payment and service has been booked.';
-        userPayment.booking_status = 'booked';
+      if (order.status === 'paid' && !order.due) {
+        consult.consult_status = 'paid';
+        consultPayment.payment_status = 'success';
+      } else {
+        consultPayment.payment_status = 'pending';
       }
-    } else {
-      userPayment.payment_status = 'pending';
+      await consultPayment.save();
+      await consult.save();
+      return res.status(200).end();
     }
-    await userPayment.save();
-    await booking.save();
-    // console.log('user payment\n', userPayment);
-    // console.log('booking\n', booking);
-    return res.status(200).end();
+    if (type === 'booking') {
+      console.log('booking webhook called');
+      const booking = await Booking.findById(receipt);
+      if (!booking) throw new ApiError('Bad Request: No Booking Found');
+      const userPayment = await UserPayment.findOne({ booking: receipt });
+      if (!userPayment) throw new ApiError('Bad Request: No User Payment Found');
+      if (userPayment.service_charge_paid) return res.status(200).end();
+
+      if (order.status === 'paid' && !order.due) {
+        //online service payment
+        if (booking.service_mode === 'online') {
+          userPayment.service_charge_paid = true;
+          booking.service_charge_paid = true;
+          userPayment.payment_status = 'success';
+        }
+        //onsite serevice payment
+        if (booking.service_mode === 'onsite') {
+          userPayment.payment_status = 'due';
+          if (booking.booking_status === 'delivered') {
+            userPayment.service_charge_paid = true;
+            userPayment.payment_status = 'success';
+            booking.service_charge_paid = true;
+            booking.booking_status = 'completed';
+            booking.user_status = 'completed';
+          }
+        }
+
+        if (booking.booking_status === 'initiated') {
+          booking.booking_status = 'booked';
+          booking.user_status = 'booked';
+          booking.status_info = 'User has made the payment and service has been booked.';
+          userPayment.booking_status = 'booked';
+        }
+      } else {
+        userPayment.payment_status = 'pending';
+      }
+      await userPayment.save();
+      await booking.save();
+      // console.log('user payment\n', userPayment);
+      // console.log('booking\n', booking);
+      return res.status(200).end();
+    }
   } catch (error) {
     next(error);
   }

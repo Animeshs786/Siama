@@ -11,7 +11,7 @@ const getAdminOtp = async (req, res, next) => {
     if (!admin) throw new ApiError('Invalid credentials.', 400);
 
     admin.otp = getOtp();
-    admin.otp_expiry = new Date();
+    admin.otp_expiry = new Date(Date.now() + 2 * 60 * 1000);
     await admin.save();
 
     return res.status(200).json({

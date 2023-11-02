@@ -25,6 +25,11 @@ const {
   requestCallback,
   addBookingReview,
   requestService,
+  consult_webhook,
+  getConsults,
+  getConsult,
+  createConsult,
+  initiateConsultPayment,
 } = require('../controllers/user');
 const authenticateUser = require('../middlewares/authenticateUser');
 
@@ -55,17 +60,23 @@ userRoute.get('/service/:id', getServiceDetails);
 // userRoute.delete('/cart/:id', authenticateUser, removeCartItem);
 
 userRoute.post('/create_booking', authenticateUser, createBooking);
+userRoute.post('/initiate_payment', authenticateUser, initiatePayment);
 userRoute.get('/booking', authenticateUser, getBookings);
 userRoute.get('/booking/:id', authenticateUser, getBooking);
 userRoute.delete('/cancle_booking/:id', authenticateUser, cancleBooking);
 userRoute.post('/booking/review', authenticateUser, addBookingReview);
+
+//---------------- consults -------------------------
+userRoute.post('/create_consult', authenticateUser, createConsult);
+userRoute.post('/init_consult_payment', authenticateUser, initiateConsultPayment);
+userRoute.get('/consults', authenticateUser, getConsults);
+userRoute.get('/consults/:id', authenticateUser, getConsult);
 
 userRoute.post('/request_callback', authenticateUser, requestCallback);
 userRoute.post('/service_request', authenticateUser, requestService);
 
 //payment
 // userRoute.post('/initiate_payment', authenticateUser, initiatePayment);
-userRoute.post('/initiate_payment', authenticateUser, initiatePayment);
 userRoute.post('/payment_webhook', payment_webhook);
 
 module.exports = userRoute;

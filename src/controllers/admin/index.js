@@ -39,6 +39,8 @@ const verifyVendorDocs = require('./vendor/verifyVendorDocs');
 const getServiceRequests = require('./service/getServiceRequests');
 const getAdminOtp = require('./auth/getAdminOtp');
 const uploadUserInvoice = require('./booking/uploadUserInvoice');
+const getConsults = require('./consult/getConsults');
+const setConsultResolved = require('./consult/setConsultResolved');
 
 module.exports = {
   loginAdmin,
@@ -89,6 +91,10 @@ module.exports = {
   confirmBooking,
   allocateBookingToVendor,
   uploadUserInvoice,
+
+  //---- consult ----
+  getConsults,
+  setConsultResolved,
 
   //----- requests --------
   getCallbackRequests,
