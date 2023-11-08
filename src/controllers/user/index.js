@@ -17,12 +17,16 @@ const addItemToCart = require('./cart/addItemToCart');
 const getUserCart = require('./cart/getUserCart');
 const removeCartItem = require('./cart/removeCartItem');
 const updateCartItem = require('./cart/updateCartItem');
+const createConsult = require('./consult/createConsult');
+const getConsult = require('./consult/getConsult');
+const getConsults = require('./consult/getConsults');
 const getAllCategories = require('./getters/getAllCategories');
 const getBanners = require('./getters/getBanners');
 const getServiceDetails = require('./getters/getServiceDetails');
 const getServices = require('./getters/getServices');
 const getServicesByCategory = require('./getters/getServicesByCategory');
 const getSubCategories = require('./getters/getSubcategories');
+const initiateConsultPayment = require('./payment/initiateConsultPayment');
 const initiatePayment = require('./payment/initiatePayment');
 const payment_webhook = require('./payment/payment_webhook');
 
@@ -53,16 +57,22 @@ module.exports = {
   addItemToCart,
   removeCartItem,
   updateCartItem,
-  //booking
+  //---- booking ----
   createBooking,
+  initiatePayment,
   cancleBooking,
   getBookings,
   getBooking,
   addBookingReview,
 
+  //---- consult ----
+  createConsult,
+  initiateConsultPayment,
+  getConsults,
+  getConsult,
+
   requestCallback,
   requestService,
   //
-  initiatePayment,
   payment_webhook,
 };

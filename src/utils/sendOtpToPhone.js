@@ -20,5 +20,5 @@ async function sendOtpToPhone(phone, otp) {
   console.log('msg res:\n', data);
 }
 
-sendOtpToPhone();
+// sendOtpToPhone();
 module.exports = sendOtpToPhone;

@@ -23,7 +23,7 @@ const initiatePayment = async (req, res, next) => {
 
     // const amount = Number(booking.consult_charge) + booking.service_mode === 'online' ? Number(booking.service_charge) : 0;
     let amount = 0;
-    if (!booking.consult_charge_paid) amount += Number(booking.consult_charge);
+    // if (!booking.consult_charge_paid) amount += Number(booking.consult_charge);
 
     if (booking.service_mode === 'online') {
       if (!booking.service_charge_paid) amount += Number(booking.service_charge);
@@ -41,7 +41,7 @@ const initiatePayment = async (req, res, next) => {
     const order = await razorpay.orders.create({
       amount: totalAmount,
       currency: 'INR',
-      receipt: booking_id,
+      receipt: `booking-${booking_id}`,
       partial_payment: false,
     });
     console.log('ORDER', order);

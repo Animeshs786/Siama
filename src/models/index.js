@@ -6,6 +6,8 @@ const Booking = require('./booking');
 const CallbackRequest = require('./callbackRequest');
 const Category = require('./category');
 const City = require('./city');
+const Consult = require('./consult');
+const ConsultPayment = require('./consultPayment');
 const CustomerReview = require('./customerReview');
 const InitUser = require('./initUser');
 const Service = require('./service');
@@ -34,4 +36,6 @@ module.exports = {
   VendorInbox,
   CustomerReview,
   ServiceRequest,
+  Consult,
+  ConsultPayment,
 };

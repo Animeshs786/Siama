@@ -9,8 +9,8 @@ const booking = new mongoose.Schema(
     estimate_time: { type: String, default: '' },
     service_mode: { type: String, default: 'online' }, //online,onsite
     service_charge: { type: String, default: '0' },
-    consult_charge: { type: String, default: '0' }, //only for onsite mode
-    consult_charge_paid: { type: Boolean, default: false }, // when onsite consult charge will be pre pay
+    // consult_charge: { type: String, default: '0' }, //only for onsite mode
+    // consult_charge_paid: { type: Boolean, default: false }, // when onsite consult charge will be pre pay
     service_charge_paid: { type: Boolean, default: false }, // offline post pay, online pre pay
     vendor: { type: mongoose.Schema.Types.ObjectId, ref: 'Vendor' },
     invoice_image: { type: String, default: '' },

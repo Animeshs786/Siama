@@ -2,6 +2,7 @@ const { isValidObjectId } = require('mongoose');
 const { ApiError } = require('../../../errorHandler');
 const { Booking } = require('../../../models');
 const { deleteOldFile } = require('../../../utils');
+const multer = require('multer');
 
 const allowedMimeTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp', 'application/pdf'];
 

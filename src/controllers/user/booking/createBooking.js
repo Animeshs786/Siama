@@ -32,8 +32,6 @@ const createBooking = async (req, res, next) => {
       estimate_time: service.estimate_time,
       service_mode: service.service_mode !== 'both' ? service.service_mode : service_mode,
       service_charge: service.service_charge,
-      consult_charge: service.consult_charge,
-      consult_charge_paid: Boolean(service.consult_charge === '0'),
       service_charge_paid: false,
       booking_status: 'initiated',
       user_status: 'initiated',
@@ -46,9 +44,7 @@ const createBooking = async (req, res, next) => {
       booking: booking._id,
       booking_status: booking.booking_status,
       service_mode: booking.service_mode, //onsite service pay later
-      consult_charge: booking.consult_charge,
       service_charge: booking.service_charge,
-      consult_charge_paid: booking.consult_charge_paid,
       service_charge_paid: booking.service_charge_paid,
       payment_status: 'initiated',
     });
