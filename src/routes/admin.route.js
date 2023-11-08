@@ -45,6 +45,10 @@ const {
   uploadUserInvoice,
   getConsults,
   setConsultResolved,
+  getCoupons,
+  addCoupon,
+  updateCoupon,
+  expireCoupon,
 } = require('../controllers/admin');
 
 adminRoute.post('/login', loginAdmin);
@@ -110,6 +114,12 @@ adminRoute.patch('/consult_resolved/:id', setConsultResolved);
 //-------------- requests -----------------------------------
 adminRoute.get('/callback_requests', getCallbackRequests);
 adminRoute.get('/service_requests', getServiceRequests);
+
+//---- coupons ----
+adminRoute.get('/coupons', getCoupons);
+adminRoute.post('/coupons', addCoupon);
+adminRoute.patch('/coupons/:id', updateCoupon);
+adminRoute.delete('/coupons/:id', expireCoupon);
 
 module.exports = adminRoute;
 /*

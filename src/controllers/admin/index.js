@@ -41,6 +41,10 @@ const getAdminOtp = require('./auth/getAdminOtp');
 const uploadUserInvoice = require('./booking/uploadUserInvoice');
 const getConsults = require('./consult/getConsults');
 const setConsultResolved = require('./consult/setConsultResolved');
+const getCoupons = require('./coupon/getCoupons');
+const addCoupon = require('./coupon/addCoupon');
+const updateCoupon = require('./coupon/updateCoupon');
+const expireCoupon = require('./coupon/expireCoupon');
 
 module.exports = {
   loginAdmin,
@@ -99,4 +103,10 @@ module.exports = {
   //----- requests --------
   getCallbackRequests,
   getServiceRequests,
+
+  //---- coupons ----
+  getCoupons,
+  addCoupon,
+  updateCoupon,
+  expireCoupon,
 };

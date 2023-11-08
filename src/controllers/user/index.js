@@ -7,6 +7,7 @@ const userLogin = require('./auth/userLogin');
 const userSignup = require('./auth/userSignup');
 const verifOtp = require('./auth/verifyOtp');
 const addBookingReview = require('./booking/addBookingReview');
+const applyCoupon = require('./booking/applyCoupon');
 const cancleBooking = require('./booking/cancleBooking');
 const createBooking = require('./booking/createBooking');
 const getBooking = require('./booking/getBooking');
@@ -20,6 +21,7 @@ const updateCartItem = require('./cart/updateCartItem');
 const createConsult = require('./consult/createConsult');
 const getConsult = require('./consult/getConsult');
 const getConsults = require('./consult/getConsults');
+const getCoupons = require('./coupon/getCoupons');
 const getAllCategories = require('./getters/getAllCategories');
 const getBanners = require('./getters/getBanners');
 const getServiceDetails = require('./getters/getServiceDetails');
@@ -75,4 +77,7 @@ module.exports = {
   requestService,
   //
   payment_webhook,
+
+  getCoupons,
+  applyCoupon,
 };

@@ -20,6 +20,7 @@ const getInvoices = require('./finance/getInvoices');
 const getAllTexes = require('./finance/getAllTaxes');
 const getCustomerReviews = require('./getCustomerReview');
 const vendorUploadDocument = require('./auth/vendorUploadDocument');
+const getHomeData = require('./getHomeData');
 
 module.exports = {
   //auth
@@ -47,4 +48,5 @@ module.exports = {
   getAllTexes,
 
   getCustomerReviews,
+  getHomeData,
 };

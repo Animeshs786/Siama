@@ -10,6 +10,7 @@ const user_payment = new mongoose.Schema(
     service_charge: { type: String, default: '0' },
     consult_charge_paid: { type: Boolean, default: false },
     service_charge_paid: { type: Boolean, default: false },
+    coupon: { type: mongoose.Schema.Types.ObjectId, ref: 'Coupon' },
     payment_status: { type: String, default: 'initiated' }, //initiated,pending,due,success,failed
   },
   {

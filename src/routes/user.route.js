@@ -6,9 +6,6 @@ const {
   getSubCategories,
   getServicesByCategory,
   getServiceDetails,
-  getUserCart,
-  addItemToCart,
-  removeCartItem,
   getUserProfile,
   getServices,
   createBooking,
@@ -25,11 +22,12 @@ const {
   requestCallback,
   addBookingReview,
   requestService,
-  consult_webhook,
   getConsults,
   getConsult,
   createConsult,
   initiateConsultPayment,
+  getCoupons,
+  applyCoupon,
 } = require('../controllers/user');
 const authenticateUser = require('../middlewares/authenticateUser');
 
@@ -59,6 +57,7 @@ userRoute.get('/service/:id', getServiceDetails);
 // userRoute.post('/cart/:id', authenticateUser, addItemToCart);
 // userRoute.delete('/cart/:id', authenticateUser, removeCartItem);
 
+//---- booking ----
 userRoute.post('/create_booking', authenticateUser, createBooking);
 userRoute.post('/initiate_payment', authenticateUser, initiatePayment);
 userRoute.get('/booking', authenticateUser, getBookings);
@@ -66,7 +65,7 @@ userRoute.get('/booking/:id', authenticateUser, getBooking);
 userRoute.delete('/cancle_booking/:id', authenticateUser, cancleBooking);
 userRoute.post('/booking/review', authenticateUser, addBookingReview);
 
-//---------------- consults -------------------------
+//---- consults ----
 userRoute.post('/create_consult', authenticateUser, createConsult);
 userRoute.post('/init_consult_payment', authenticateUser, initiateConsultPayment);
 userRoute.get('/consults', authenticateUser, getConsults);
@@ -75,8 +74,9 @@ userRoute.get('/consults/:id', authenticateUser, getConsult);
 userRoute.post('/request_callback', authenticateUser, requestCallback);
 userRoute.post('/service_request', authenticateUser, requestService);
 
-//payment
-// userRoute.post('/initiate_payment', authenticateUser, initiatePayment);
 userRoute.post('/payment_webhook', payment_webhook);
+
+userRoute.get('/coupons', authenticateUser, getCoupons);
+userRoute.post('/apply_coupon', authenticateUser, applyCoupon);
 
 module.exports = userRoute;

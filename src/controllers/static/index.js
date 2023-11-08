@@ -1,3 +1,4 @@
+const getAddressByPincode = require('./getAddressByPincode');
 const getCities = require('./getCities');
 const getStates = require('./getStates');
 // const getStates = async (req, res, next) => {
@@ -31,4 +32,5 @@ const getStates = require('./getStates');
 module.exports = {
   getStates,
   getCities,
+  getAddressByPincode,
 };

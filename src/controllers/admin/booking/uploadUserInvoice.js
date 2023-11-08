@@ -1,3 +1,4 @@
+const fs = require('fs');
 const { isValidObjectId } = require('mongoose');
 const { ApiError } = require('../../../errorHandler');
 const { Booking } = require('../../../models');
@@ -39,6 +40,7 @@ const uploadUserInvoice = async (req, res, next) => {
       if (!booking) throw new ApiError('booking id is required', 400);
       if (!isValidObjectId(booking)) throw new ApiError('booking id is invalid.', 400);
       const bookingRes = await Booking.findById(booking);
+      if (!bookingRes) throw new ApiError('booking id is invalid.', 400);
       if (!req.file) throw new ApiError('invoice_image is required.', 400);
 
       bookingRes.user_invoice = process.env.BASE_URL + req.file.path;

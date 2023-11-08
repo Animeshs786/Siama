@@ -1,0 +1,30 @@
+//third meeting
+image size in banner
+export to excel user data in admin
+estimate time remove in service add
+email send by email personal smtp
+
+thank you for booking mail service
+service, inactive not show to user
+
+payment recipt send to mail admin upload
+
+level 2
+invoice generation
+tally linkage
+customer support
+
+TODO:===========================================
+estimate time remove in service add => Done
+
+pincode auto fill apis => done
+
+email personal smtp
+
+export to excel data (user, bookings)
+
+thank you for booking mail service
+
+payment recipt admin upload of vendor / download or get on email
+
+booking created with offer : not paid : offer expire : paid later will get the discount

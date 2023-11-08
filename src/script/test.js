@@ -138,46 +138,11 @@ async function testt() {
   }
 }
 
-async function sendOtpToPhone(phone, otp) {
+async function test() {
   const response = await axios({
-    method: 'POST',
-    url: 'https://api.msg91.com/api/v5/flow/',
-    headers: {
-      authkey: '380308ADMVDwhF62e7663eP1',
-      'Content-Type': 'application/JSON',
-      // Cookie: 'PHPSESSID=p6sigj223tdkhtfnq7l41tplh3',
-    },
-    data: {
-      flow_id: '63036770b1747d1e207801c7',
-      mobiles: '918130289007',
-      code: '1005',
-    },
+    method: 'GET',
+    url: 'https://api.worldpostallocations.com/pincode?postalcode=&countrycode=IN&apikey=1321-9b1e00f8-f861e00c-7df5f89c-905a686549e14d36cd2',
   });
-  const data = response.data;
-  console.log('msg res:\n', data);
+  console.log(response.data);
 }
-// sendOtpToPhone();
-/*
-function send_otp(number, otp, country_code) {
-  console.log(otp);
-  var request = require('request');
-  var options = {
-    'method': 'POST',
-    'url': 'https://api.msg91.com/api/v5/flow/',
-    'headers': {
-      'authkey': '380308ADMVDwhF62e7663eP1',
-      'content-type': 'application/JSON',
-      'Cookie': 'PHPSESSID=p6sigj223tdkhtfnq7l41tplh3'
-    },
-    body: '{\r\n  "flow_id": "63036770b1747d1e207801c7",\r\n  "sender": "BHAVGU",\r\n  "mobiles": "' + country_code + number + '",\r\n  "code": "' + otp + '"\r\n}'
-    // body: '{\r\n  "flow_id": "6389f0b8c6ed6a58ad2f60b3",\r\n  "sender": "ASPUSH",\r\n  "mobiles": "'+country_code+number+'",\r\n  "otp": "'+otp+'"\r\n}'
-
-  };
-  console.log(options);
-  request(options, function (error, response) {
-    if (error) throw new Error(error);
-    console.log(response.body);
-  });
-
-}
-*/
+// test();
