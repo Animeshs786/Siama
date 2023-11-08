@@ -14,6 +14,7 @@ const finalErrorHandler = (error, req, res, next) => {
   const statusCode = error.statusCode || 500;
   res.status(statusCode);
   if (statusCode === 500) {
+    console.log(error);
     return res.json({ status: false, message: error.message, stack: error.stack, error: error });
   }
   res.json({ status: false, message: error.message });

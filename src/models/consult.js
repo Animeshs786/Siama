@@ -5,10 +5,10 @@ const consult = new mongoose.Schema(
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     service: { type: mongoose.Schema.Types.ObjectId, ref: 'Service' },
     consult_charge: { type: String, default: '0' },
-
+    scheduled_date: { type: String, default: '' },
     invoice_image: { type: String, default: '' },
     user_invoice: { type: String, default: '' },
-    consult_status: { type: String, default: 'initiated' }, //initiated, paid, completed
+    consult_status: { type: String, default: 'initiated', enum: ['initiated', 'paid', 'completed'] },
   },
   {
     timestamp: { createdAt: 'created_at', updatedAt: 'updated_at' },

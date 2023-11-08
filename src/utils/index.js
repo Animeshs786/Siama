@@ -4,6 +4,7 @@ const util = require('util');
 
 const getOtp = require('./getOtp');
 const verifyAccessToken = require('./verifyAccessToken');
+const sendOtpToPhone = require('./sendOtpToPhone');
 
 const isValidMongoId = (id) => {
   return mongoose.Types.ObjectId.isValid(id);
@@ -25,4 +26,5 @@ module.exports = {
   isValidMongoId,
   verifyAccessToken,
   deleteOldFile,
+  sendOtpToPhone,
 };

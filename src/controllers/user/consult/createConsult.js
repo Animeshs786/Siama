@@ -4,7 +4,7 @@ const { Service, Consult, ConsultPayment } = require('../../../models');
 
 const createConsult = async (req, res, next) => {
   try {
-    const { service_id } = req.body;
+    const { service_id, scheduled_date } = req.body;
     const user = req.user;
     if (!isValidObjectId(service_id)) throw new ApiError('Invalid service id', 400);
     const service = await Service.findById(service_id);
@@ -14,6 +14,7 @@ const createConsult = async (req, res, next) => {
       user: user._id,
       service: service._id,
       consult_charge: service.consult_charge,
+      scheduled_date: scheduled_date || '',
       consult_status: 'initiated',
     });
 

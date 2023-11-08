@@ -20,6 +20,7 @@ const {
   getAllTexes,
   vendorUploadDocument,
   getCustomerReviews,
+  getHomeData,
 } = require('../controllers/vendor');
 const { authenticateVendor } = require('../middlewares');
 
@@ -35,6 +36,8 @@ vendorRoute.patch('/profile', authenticateVendor, updateVendorProfile);
 
 vendorRoute.get('/get_verify_email_link', authenticateVendor, getVerifyEmailLink);
 vendorRoute.get('/verify_email/:token', authenticateVendor, verifyVendorMailId);
+
+vendorRoute.get('/home_data', authenticateVendor, getHomeData);
 
 vendorRoute.post('/upload_documents', authenticateVendor, vendorUploadDocuments);
 vendorRoute.post('/upload_documents/:doc', authenticateVendor, vendorUploadDocument);
