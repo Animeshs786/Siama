@@ -49,6 +49,7 @@ const {
   addCoupon,
   updateCoupon,
   expireCoupon,
+  uploadPaymentSlip,
 } = require('../controllers/admin');
 
 adminRoute.post('/login', loginAdmin);
@@ -100,6 +101,7 @@ adminRoute.patch('/assign_scateg/:vendor', assignSubCategory);
 adminRoute.patch('/assign_cities/:vendor', assigneCities);
 adminRoute.get('/vendors/:id/docs', getVendorDocs);
 adminRoute.patch('/vendors/:id/docs', verifyVendorDocs);
+adminRoute.post('/upload_vendor_payslip', uploadPaymentSlip);
 //---- bookings ----
 adminRoute.get('/bookings', getBookings); //should be /bookings
 adminRoute.get('/bookings/:id', getBooking); ////should be /bookings/:id

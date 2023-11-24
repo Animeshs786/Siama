@@ -1,6 +1,6 @@
 const { ApiError } = require('../../../errorHandler');
 const { Vendor } = require('../../../models');
-const { getOtp } = require('../../../utils');
+const { getOtp, sendOtpToPhone } = require('../../../utils');
 
 const loginVendor = async (req, res, next) => {
   try {
@@ -10,6 +10,9 @@ const loginVendor = async (req, res, next) => {
     if (!vendor) throw new ApiError('Invalid Phone number', 400);
     vendor.otp = getOtp();
     vendor.otp_expiry = new Date(Date.now() + 2 * 60 * 1000);
+    //send otp to phone
+    await sendOtpToPhone(phone, vendor.otp);
+    //send otp to phone
     await vendor.save();
     return res.status(200).json({
       status: true,

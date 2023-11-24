@@ -7,6 +7,7 @@ const document = new mongoose.Schema({
   file: { type: String, default: '' },
   verified: { type: Boolean, default: false },
 });
+
 const bank_details = new mongoose.Schema({
   _id: false,
   bank_name: { type: String, default: '' },
@@ -21,7 +22,7 @@ const vendor = new mongoose.Schema(
     phone: { type: String, trim: true, unique: true },
     phone_verified: { type: Boolean, default: false },
     name: { type: String, trim: true, default: '' },
-    email: { type: String, trim: true, unique: true },
+    email: { type: String, trim: true, default: '' },
     email_verified: { type: Boolean, default: false },
     registered: { type: Boolean, default: false },
     approved: { type: Boolean, default: false },

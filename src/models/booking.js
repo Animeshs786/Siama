@@ -22,6 +22,9 @@ const booking = new mongoose.Schema(
     admin_status: { type: String, default: '' }, // admin_rejected, confirmed, allocated,
     vendor_status: { type: String, default: '' }, //vendor_rejected, inprogress, hold, delivered
     status_info: { type: String, default: '' },
+
+    vendor_payslip: { type: String, default: '' },
+    // vendor_pay_slip_status: { type: String, default: 'not_uploaded', enum: ['not_uploaded', 'uploaded'] },
   },
   {
     timestamp: { createdAt: 'created_at', updatedAt: 'updated_at' },

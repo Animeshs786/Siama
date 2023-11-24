@@ -20,14 +20,6 @@ address schema change for state and city - done
 state and city schema - data saved for state and cities - done
 upload invoice for particular booking api - done
 
-
-vendor update profile - status update enable disabel
-register vendor api changes
-registerVendor state city not applied: should be applied
-
-
-
-
 later: vendor wallet
 
 Note:
@@ -37,6 +29,8 @@ its solution is to only make schema not models but in create booking api jatin s
 give only id of the saved address
 i can also make changes according to that, i can get the user and get his saved address by id
 then extract and save all the Details of address in booking
+
+TODO: booking created with offer : not paid : offer expire : paid later will get the discount
 
 //--
 info.cloudgem@gmail.com

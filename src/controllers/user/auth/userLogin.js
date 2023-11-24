@@ -1,6 +1,6 @@
 const { ApiError } = require('../../../errorHandler');
 const { User, InitUser } = require('../../../models');
-const { getOtp } = require('../../../utils');
+const { getOtp, sendOtpToPhone } = require('../../../utils');
 
 const userLogin = async (req, res, next) => {
   try {
@@ -12,7 +12,9 @@ const userLogin = async (req, res, next) => {
     }
     const otp = getOtp();
     const otpExpiry = new Date(Date.now() + 2 * 60 * 1000);
-
+    //send otp to phone
+    await sendOtpToPhone(phone, otp);
+    //send otp to phone
     const user = await User.findOne({ phone });
     if (!user) {
       const tempUser = await saveTempUser(phone, otp, otpExpiry);

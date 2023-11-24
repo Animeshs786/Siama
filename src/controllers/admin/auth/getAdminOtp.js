@@ -1,5 +1,5 @@
 const { ApiError } = require('../../../errorHandler');
-const { getOtp } = require('../../../utils');
+const { getOtp, sendOtpToPhone } = require('../../../utils');
 const { Admin } = require('../../../models');
 
 const getAdminOtp = async (req, res, next) => {
@@ -13,7 +13,9 @@ const getAdminOtp = async (req, res, next) => {
     admin.otp = getOtp();
     admin.otp_expiry = new Date(Date.now() + 2 * 60 * 1000);
     await admin.save();
-
+    //send otp to phone
+    await sendOtpToPhone(admin.phone, admin.otp);
+    //send otp to phone
     return res.status(200).json({
       status: true,
       message: 'OTP send to registered number.',

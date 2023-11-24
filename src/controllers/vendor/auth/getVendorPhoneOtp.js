@@ -1,5 +1,5 @@
 const { Vendor } = require('../../../models');
-const { getOtp } = require('../../../utils');
+const { getOtp, sendOtpToPhone } = require('../../../utils');
 
 const getVendorPhoneOtp = async (req, res, next) => {
   try {
@@ -14,6 +14,9 @@ const getVendorPhoneOtp = async (req, res, next) => {
 
     vendor.otp = getOtp();
     vendor.otp_expiry = new Date(Date.now() + 2 * 60 * 1000); //2min
+    //send otp to phone
+    await sendOtpToPhone(phone, vendor.otp);
+    //send otp to phone
     await vendor.save();
     return res.status(200).json({ status: true, message: 'Otp Send' });
   } catch (error) {

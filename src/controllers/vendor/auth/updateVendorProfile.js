@@ -1,5 +1,5 @@
-const multer = require('multer');
 const fs = require('fs');
+const multer = require('multer');
 const { ApiError } = require('../../../errorHandler');
 const { User, State, City } = require('../../../models');
 const { deleteOldFile } = require('../../../utils');

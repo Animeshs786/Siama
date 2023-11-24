@@ -16,15 +16,10 @@ customer support
 
 TODO:===========================================
 estimate time remove in service add => Done
-
 pincode auto fill apis => done
 
 email personal smtp
+thank you for booking mail service
+payment recipt admi0n upload of vendor / download or get on email
 
 export to excel data (user, bookings)
-
-thank you for booking mail service
-
-payment recipt admin upload of vendor / download or get on email
-
-booking created with offer : not paid : offer expire : paid later will get the discount

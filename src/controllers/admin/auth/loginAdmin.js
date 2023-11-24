@@ -5,12 +5,12 @@ const { ApiError } = require('../../../errorHandler');
 const { STATIC_OTP, ACCESS_TOKEN_SECRET } = process.env;
 
 const loginAdmin = async (req, res, next) => {
-  console.log('Login post hist');
   try {
     const { email, password, otp } = req.body;
 
     if (!email) throw new ApiError('Email is required.', 400);
     if (!password) throw new ApiError('Password is required.', 400);
+    if (!otp) throw new ApiError('otp is required.', 400);
 
     const admin = await Admin.findOne({ email });
     if (!admin) throw new ApiError('Invalid email ID.', 400);

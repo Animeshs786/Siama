@@ -45,6 +45,7 @@ const getCoupons = require('./coupon/getCoupons');
 const addCoupon = require('./coupon/addCoupon');
 const updateCoupon = require('./coupon/updateCoupon');
 const expireCoupon = require('./coupon/expireCoupon');
+const uploadPaymentSlip = require('./vendor/uploadPaymentSlip');
 
 module.exports = {
   loginAdmin,
@@ -88,6 +89,7 @@ module.exports = {
   assignSubCategory,
   assigneCities,
   verifyVendorDocs,
+  uploadPaymentSlip,
 
   //------ booking -------
   getBookings,
