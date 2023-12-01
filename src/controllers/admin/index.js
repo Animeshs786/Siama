@@ -46,6 +46,7 @@ const addCoupon = require('./coupon/addCoupon');
 const updateCoupon = require('./coupon/updateCoupon');
 const expireCoupon = require('./coupon/expireCoupon');
 const uploadPaymentSlip = require('./vendor/uploadPaymentSlip');
+const verifyVendorKYC = require('./vendor/verifyVendorKYC');
 
 module.exports = {
   loginAdmin,
@@ -78,6 +79,7 @@ module.exports = {
   deleteSubCategory,
   updateSubCategory,
 
+  //---- vendor ----
   getUnapprovedVendors,
   getVendors,
   getVendor,
@@ -90,6 +92,7 @@ module.exports = {
   assigneCities,
   verifyVendorDocs,
   uploadPaymentSlip,
+  verifyVendorKYC,
 
   //------ booking -------
   getBookings,

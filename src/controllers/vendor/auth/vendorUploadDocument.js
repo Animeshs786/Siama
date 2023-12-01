@@ -22,7 +22,14 @@ const storage = multer.diskStorage({
   },
 });
 
-const vendor_docs = ['doc1', 'doc2', 'doc3', 'doc4', 'doc5'];
+const vendor_docs = [
+  'gst_certificate',
+  'company_pan',
+  'aadhar_card',
+  'msme_certificate',
+  'cancelled_cheque',
+  'other_doc',
+];
 
 function getUploader(doc) {
   const uploader = multer({

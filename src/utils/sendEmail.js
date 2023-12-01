@@ -1,7 +1,9 @@
 const nodemailer = require('nodemailer');
 
-const pass = `kqkcbzcsjpxlryhj`;
-const sender = 'rajatkumar.dev.acc@gmail.com';
+const pass = `gilmfxydyhqydpyz`;
+const sender = 'ibuzoo.eservices@gmail.com';
+// const pass = `kqkcbzcsjpxlryhj`;
+// const sender = 'rajatkumar.dev.acc@gmail.com';
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -10,32 +12,30 @@ const transporter = nodemailer.createTransport({
     pass: pass,
   },
 });
-// data (to_email,)
-async function sendEmail(type, to_email, data) {
-  const mail = getMail(type);
-  var mailOptions = {
-    from: sender,
-    to: to_email,
-    subject: mail.subject,
-    text: mail.text,
-  };
-
-  transporter.sendMail(mailOptions, function (error, info) {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log('Email sent: ' + info.response);
-    }
+async function sendEmail(data) {
+  const mail = getMailConfig(data);
+  transporter.sendMail(mail, function (error, info) {
+    if (error) console.log(error);
+    else console.log('Email sent: ' + info.response);
   });
 }
 
-function getMail(type) {
-  switch (type) {
+function getMailConfig(data) {
+  switch (data.type) {
     case 'thank_you':
       return {
+        from: sender,
+        to: data.to_email,
         subject: `Thank You`,
         text: 'Thank you for booking service.',
-        html: 'Thank you for booking service.',
+      };
+
+    case 'vendor_get_payslip':
+      return {
+        from: sender,
+        to: data.to_email,
+        subject: `Payment slip from ibuzoo`,
+        html: `<img src='${data.slip_link}' alt='payment slip' /> <br/><br/> <b><a href='${data.slip_link}' download>Download</a><b/>`,
       };
 
     default:

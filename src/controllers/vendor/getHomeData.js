@@ -8,12 +8,16 @@ const getHomeData = async (req, res, next) => {
       email_verified: vendor.email_verified,
       documents: vendor.documents,
       bank_details: vendor.bank_details,
+      kyc_status: vendor.kyc_status,
+      insufficient_docs: vendor.documents.length > 4,
     };
+
     const bookings = await Booking.find();
     data.bookings = bookings;
 
     const total_bookings = await Booking.countDocuments();
     data.total_bookings = total_bookings;
+
     // .populate([
     //   { path: 'service' },
     //   { path: 'address' },

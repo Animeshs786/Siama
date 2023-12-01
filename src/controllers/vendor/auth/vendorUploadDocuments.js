@@ -29,11 +29,12 @@ const upload = multer({
     allowedMimeTypes.includes(file.mimetype) ? cb(null, true) : cb(new ApiError('Invalid File type!', 400));
   },
 }).fields([
-  { name: 'doc1', maxCount: 1 },
-  { name: 'doc2', maxCount: 1 },
-  { name: 'doc3', maxCount: 1 },
-  { name: 'doc4', maxCount: 1 },
-  { name: 'doc5', maxCount: 1 },
+  { name: 'gst_certificate', maxCount: 1 },
+  { name: 'company_pan', maxCount: 1 },
+  { name: 'aadhar_card', maxCount: 1 },
+  { name: 'msme_certificate', maxCount: 1 },
+  { name: 'cancelled_cheque', maxCount: 1 },
+  { name: 'other_doc', maxCount: 1 },
 ]);
 
 // req.files?.map(img => {
@@ -42,6 +43,11 @@ const upload = multer({
 // });
 
 const vendorUploadDocuments = async (req, res, next) => {
+  return res.status(301).json({
+    status: true,
+    message: 'The URL of the requested resource has been changed permanently.',
+    new_endpoint: '/vendor/upload_documents/:doc_name',
+  });
   upload(req, res, async (error) => {
     try {
       const vendor = req.vendor;

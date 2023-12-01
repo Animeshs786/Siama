@@ -38,3 +38,5 @@ Development@2023%#
 
 info.ibuzoo@gmail.com
 Development@2023%#
+
+new server http://143.244.142.131:3001/api/ping

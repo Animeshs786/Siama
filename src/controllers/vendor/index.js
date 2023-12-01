@@ -21,6 +21,8 @@ const getAllTexes = require('./finance/getAllTaxes');
 const getCustomerReviews = require('./getCustomerReview');
 const vendorUploadDocument = require('./auth/vendorUploadDocument');
 const getHomeData = require('./getHomeData');
+const downloadPayslip = require('./booking/downloadPayslip');
+const mailPayslip = require('./booking/mailPayslip');
 
 module.exports = {
   //auth
@@ -35,6 +37,8 @@ module.exports = {
   verifyVendorMailId,
   vendorUploadDocuments,
   vendorUploadDocument,
+  downloadPayslip,
+  mailPayslip,
 
   getAllocatedBookings,
   getDeliveredBookings,

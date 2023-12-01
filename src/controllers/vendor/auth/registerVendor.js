@@ -35,7 +35,7 @@ const registerVendor = async (req, res, next) => {
     if (!name) throw new ApiError('name is required', 400);
     if (!company) throw new ApiError('company is required', 400);
     if (!building) throw new ApiError('building is required', 400);
-    if (!street) throw new ApiError('street is required', 400);
+    // if (!street) throw new ApiError('street is required', 400);
     if (!locality) throw new ApiError('locality is required', 400);
 
     if (!state) throw new ApiError('state is required', 400);
@@ -52,7 +52,7 @@ const registerVendor = async (req, res, next) => {
     if (!pincode) throw new ApiError('pincode is required', 400);
     if (!gst_no) throw new ApiError('gst_no is required', 400);
     if (!pan_no) throw new ApiError('pan_no is required', 400);
-    if (!aadhar_no) throw new ApiError('aadhar_no is required', 400);
+    // if (!aadhar_no) throw new ApiError('aadhar_no is required', 400);
 
     // await vendor.save();
     await Vendor.findByIdAndUpdate(vendor._id, {
@@ -60,7 +60,7 @@ const registerVendor = async (req, res, next) => {
       email,
       company,
       building,
-      street,
+      street: street || '',
       locality,
       state: stateRes.name,
       state_id: stateRes._id,
@@ -70,7 +70,7 @@ const registerVendor = async (req, res, next) => {
       pincode,
       gst_no,
       pan_no,
-      aadhar_no,
+      aadhar_no: aadhar_no || '',
       registered: true,
     });
     const access_token = jwt.sign({ id: vendor._id, phone: vendor.phone }, ACCESS_TOKEN_SECRET);

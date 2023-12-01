@@ -4,6 +4,7 @@ const { DEFAULT_USER_IMG } = process.env;
 
 const user = new mongoose.Schema(
   {
+    user_id: { type: Number, default: 0, unique: [true, 'user_id should be unique'] },
     first_name: { type: String, trim: true, required: true },
     last_name: { type: String, trim: true, required: true },
     phone: { type: String, trim: true, required: true, unique: true },
@@ -30,6 +31,11 @@ const user = new mongoose.Schema(
     collection: 'users',
   }
 );
-
+user.pre('save', async function (next) {
+  const User = mongoose.model('User');
+  const count = await User.countDocuments();
+  this.user_id = count + 1;
+  next();
+});
 const User = mongoose.model('User', user);
 module.exports = User;

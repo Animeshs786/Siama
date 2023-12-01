@@ -21,6 +21,8 @@ const {
   vendorUploadDocument,
   getCustomerReviews,
   getHomeData,
+  downloadPayslip,
+  mailPayslip,
 } = require('../controllers/vendor');
 const { authenticateVendor } = require('../middlewares');
 
@@ -47,6 +49,8 @@ vendorRoute.get('/delivered_bookings', authenticateVendor, getDeliveredBookings)
 vendorRoute.get('/open_bookings', authenticateVendor, getOpenBookings);
 vendorRoute.patch('/update_booking_status', authenticateVendor, updateBookingStatus);
 vendorRoute.post('/upload_booking_invoice', authenticateVendor, uploadBookingInvoice);
+vendorRoute.get('/download_payment_slip/:booking', authenticateVendor, downloadPayslip);
+vendorRoute.get('/mail_payment_slip/:booking', authenticateVendor, mailPayslip);
 
 vendorRoute.get('/inbox', authenticateVendor, getInbox);
 

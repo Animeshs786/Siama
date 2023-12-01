@@ -4,6 +4,7 @@ const { ApiError } = require('../../../errorHandler');
 const { User, State, City } = require('../../../models');
 const { deleteOldFile } = require('../../../utils');
 const allowedMimeTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp', 'image/gif'];
+const { DEFAULT_USER_IMG } = process.env;
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -54,7 +55,7 @@ const updateUserProfile = async (req, res, next) => {
       if (gst_no) updateData.gst_no = gst_no;
       if (address) updateData.address = address;
       if (req.file) {
-        await deleteOldFile(user.profile_image);
+        if (user.profile_image !== DEFAULT_USER_IMG) await deleteOldFile(user.profile_image);
         const url = process.env.BASE_URL + req.file.path;
         updateData.profile_image = url;
       }
