@@ -52,6 +52,7 @@ const {
   uploadPaymentSlip,
   verifyVendorKYC,
 } = require('../controllers/admin');
+const sendVendorMessage = require('../controllers/admin/vendor/sendVendorMessage');
 
 adminRoute.post('/login', loginAdmin);
 adminRoute.post('/get_otp', getAdminOtp);
@@ -104,6 +105,7 @@ adminRoute.get('/vendors/:id/docs', getVendorDocs);
 adminRoute.patch('/vendors/:id/docs', verifyVendorDocs);
 adminRoute.post('/upload_vendor_payslip', uploadPaymentSlip);
 adminRoute.get('/verify_vendor_kyc/:id', verifyVendorKYC);
+adminRoute.post('/send_vendor_msg', sendVendorMessage);
 
 //---- bookings ----
 adminRoute.get('/bookings', getBookings); //should be /bookings

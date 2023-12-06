@@ -1,6 +1,6 @@
 const { isValidObjectId } = require('mongoose');
 const { ApiError } = require('../../../errorHandler');
-const { Vendor } = require('../../../models');
+const { Vendor, VendorInbox } = require('../../../models');
 
 const verifyVendorKYC = async (req, res, next) => {
   try {
@@ -11,6 +11,13 @@ const verifyVendorKYC = async (req, res, next) => {
     if (vendor.kyc_status !== 'verified') {
       vendor.kyc_status = 'verified';
       await vendor.save();
+      const inbox = new VendorInbox({
+        vendor: vendor._id,
+        type: 'admin',
+        title: `KYC Verified`,
+        text: 'Your KYC is completed, and admin has verified your KYC.',
+      });
+      await inbox.save();
     }
     return res.status(200).json({ status: true, message: 'Vendor is KYC verified' });
   } catch (error) {

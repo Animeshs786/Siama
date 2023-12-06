@@ -47,6 +47,7 @@ const updateCoupon = require('./coupon/updateCoupon');
 const expireCoupon = require('./coupon/expireCoupon');
 const uploadPaymentSlip = require('./vendor/uploadPaymentSlip');
 const verifyVendorKYC = require('./vendor/verifyVendorKYC');
+const createVendorInbox = require('./vendor/sendVendorMessage');
 
 module.exports = {
   loginAdmin,
@@ -93,6 +94,7 @@ module.exports = {
   verifyVendorDocs,
   uploadPaymentSlip,
   verifyVendorKYC,
+  createVendorInbox,
 
   //------ booking -------
   getBookings,

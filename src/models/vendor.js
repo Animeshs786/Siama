@@ -53,7 +53,7 @@ const vendor = new mongoose.Schema(
     sub_categories: [{ type: mongoose.Schema.Types.ObjectId, ref: 'SubCategory' }], // assigned by admin
     documents: [document],
     kyc_status: { type: String, default: 'pending', enum: ['pending', 'verified'] },
-    bank_details: bank_details,
+    bank_details: { type: bank_details, default: null },
   },
   {
     timestamps: {
