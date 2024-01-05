@@ -74,6 +74,10 @@ const updateVendorProfile = async (req, res, next) => {
       if (pincode) vendor.pincode = pincode;
       if (gst_no) vendor.gst_no = gst_no;
       if (pan_no) vendor.pan_no = pan_no;
+
+      if (aadhar_no && String(aadhar_no).length !== 12 && isNaN(aadhar_no))
+        throw new ApiError('aadhar_no is invalid', 400);
+
       if (aadhar_no) vendor.aadhar_no = aadhar_no;
       if (status) {
         if (status !== 'true' && status !== 'false') throw new ApiError('Invalid status value', 400);

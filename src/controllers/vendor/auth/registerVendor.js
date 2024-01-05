@@ -52,9 +52,10 @@ const registerVendor = async (req, res, next) => {
     if (!pincode) throw new ApiError('pincode is required', 400);
     if (!gst_no) throw new ApiError('gst_no is required', 400);
     if (!pan_no) throw new ApiError('pan_no is required', 400);
-    // if (!aadhar_no) throw new ApiError('aadhar_no is required', 400);
 
-    // await vendor.save();
+    if (aadhar_no && String(aadhar_no).length !== 12 && isNaN(aadhar_no))
+      throw new ApiError('aadhar_no is invalid', 400);
+
     await Vendor.findByIdAndUpdate(vendor._id, {
       name,
       email,

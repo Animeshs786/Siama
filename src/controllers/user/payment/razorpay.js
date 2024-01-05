@@ -7,6 +7,7 @@ const razorpay = new Razorpay({
 });
 
 module.exports = razorpay;
+
 // const order = await razorpay.orders.create({
 //   amount: 50000,
 //   currency: 'INR',
