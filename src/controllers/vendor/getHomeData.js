@@ -12,10 +12,10 @@ const getHomeData = async (req, res, next) => {
       insufficient_docs: vendor.documents.length > 4,
     };
 
-    const bookings = await Booking.find();
+    const bookings = await Booking.find({ vendor: req.vendor._id });
     data.bookings = bookings;
 
-    const total_bookings = await Booking.countDocuments();
+    const total_bookings = await Booking.countDocuments({ vendor: req.vendor._id });
     data.total_bookings = total_bookings;
 
     // .populate([
@@ -36,7 +36,7 @@ const getHomeData = async (req, res, next) => {
     });
     data.open_bookings = open_bookings;
 
-    const inbox = await VendorInbox.find().limit(10).sort('-created_at');
+    const inbox = await VendorInbox.find({ vendor: req.vendor._id }).limit(10).sort('-created_at');
     data.inbox = inbox;
 
     const reviews = await CustomerReview.find({ vendor: req.vendor._id })
@@ -56,3 +56,9 @@ const getHomeData = async (req, res, next) => {
 };
 
 module.exports = getHomeData;
+async function genPass() {
+  const bcrypt = require('bcrypt');
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash('Services@2023%#', salt);
+  console.log('>', hashedPassword);
+}
