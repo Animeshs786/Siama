@@ -32,9 +32,11 @@ const user = new mongoose.Schema(
   }
 );
 user.pre('save', async function (next) {
-  const User = mongoose.model('User');
-  const count = await User.countDocuments();
-  this.user_id = count + 1;
+  if (!this.user_id) {
+    const User = mongoose.model('User');
+    const count = await User.countDocuments();
+    this.user_id = count + 1;
+  }
   next();
 });
 const User = mongoose.model('User', user);
