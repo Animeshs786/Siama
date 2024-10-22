@@ -8,12 +8,13 @@ async function createFirstAdmin() {
   const hashedPassword = await bcrypt.hash('123456', salt);
 
   const admin = new Admin({
-    name: 'Rajat Kumar',
-    phone: '6392985407',
-    email: 'rajat@gmail.com',
+    name: 'Farhan Saifi',
+    phone: '8130289007',
+    email: 'admin@gmail.com',
     password: hashedPassword,
   });
   await admin.save();
+  console.log('admin crated', admin.toJSON());
 }
 const initData = async () => {
   await createFirstAdmin();

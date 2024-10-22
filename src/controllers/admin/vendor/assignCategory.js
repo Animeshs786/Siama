@@ -1,6 +1,6 @@
 const { isValidObjectId } = require('mongoose');
 const { ApiError } = require('../../../errorHandler');
-const { Vendor, Category, VendorInbox } = require('../../../models');
+const { Vendor, Category, VendorInbox, SubCategory } = require('../../../models');
 
 const assignCategory = async (req, res, next) => {
   try {
@@ -10,7 +10,7 @@ const assignCategory = async (req, res, next) => {
     for (let i = 0; i < cat_arr.length; i++) {
       const cat_id = cat_arr[i];
       if (!isValidObjectId(cat_id)) throw new ApiError(`Invalid category ID: ${cat_id}`, 400);
-      const categ = await Category.findById(cat_id);
+      const categ = await SubCategory.findById(cat_id);
       if (!categ) throw new ApiError(`Invalid category ID: ${cat_id}`, 400);
     }
     if (!isValidObjectId(vendor_id)) throw new ApiError('Invalid Vendor ID', 400);

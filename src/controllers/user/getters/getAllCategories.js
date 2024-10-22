@@ -1,12 +1,42 @@
-const { Category } = require('../../../models');
+const { Category } = require("../../../models");
 
 const getAllCategories = async (req, res, next) => {
   try {
-    const categs = await Category.find({ status: true }).select('-__v').lean();
+    const {
+      sort_field = "user_id", // Default sort field
+      sort_type = "asc", // Default sort type
+      search,
+      type,
+    } = req.query;
+
+    // Validate sort_type
+    if (sort_type !== "asc" && sort_type !== "desc") {
+      throw new ApiError("Invalid sort type", 400);
+    }
+
+    const findQuery = { status: true };
+
+    if (type) {
+      findQuery.type = type;
+    }
+
+    if (search) {
+      findQuery.$or = [
+        { name: { $regex: search, $options: "i" } },
+        { description: { $regex: search, $options: "i" } },
+      ];
+    }
+
+    const categs = await Category.find(findQuery).sort({
+      [sort_field]: sort_type,
+    });
+
     return res.status(200).json({
       status: true,
-      message: 'Categories Listing',
-      data: categs,
+      message: "Category listingi",
+      data: {
+        categories: categs,
+      },
     });
   } catch (error) {
     next(error);

@@ -1,21 +1,27 @@
-const fs = require('fs');
-const multer = require('multer');
-const { ApiError } = require('../../../errorHandler');
-const { User, State, City } = require('../../../models');
-const { deleteOldFile } = require('../../../utils');
-const allowedMimeTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp', 'image/gif'];
+const fs = require("fs");
+const multer = require("multer");
+const { ApiError } = require("../../../errorHandler");
+const { User, State, City } = require("../../../models");
+const { deleteOldFile } = require("../../../utils");
+const allowedMimeTypes = [
+  "image/png",
+  "image/jpeg",
+  "image/jpg",
+  "image/webp",
+  "image/gif",
+];
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    if (!fs.existsSync('public/vendor')) {
-      fs.mkdirSync('public/vendor', { recursive: true });
+    if (!fs.existsSync("public/vendor")) {
+      fs.mkdirSync("public/vendor", { recursive: true });
     }
-    cb(null, 'public/vendor');
+    cb(null, "public/vendor");
   },
   filename: function (req, file, cb) {
     const { originalname } = file;
-    let fileExt = '.jpeg';
-    const extI = originalname.lastIndexOf('.');
+    let fileExt = ".jpeg";
+    const extI = originalname.lastIndexOf(".");
     if (extI !== -1) {
       fileExt = originalname.substring(extI).toLowerCase();
     }
@@ -26,18 +32,21 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage: storage,
   fileFilter: (req, file, cb) => {
-    allowedMimeTypes.includes(file.mimetype) ? cb(null, true) : cb(new ApiError('Invalid image type', 400));
+    allowedMimeTypes.includes(file.mimetype)
+      ? cb(null, true)
+      : cb(new ApiError("Invalid image type", 400));
   },
-}).single('profile_image');
+}).single("profile_image");
 
 const updateVendorProfile = async (req, res, next) => {
   upload(req, res, async (error) => {
     try {
       if (error) throw new ApiError(error.message, 400);
       const vendor = req.vendor;
-      if (!vendor) throw new ApiError('invalid id', 400);
+      if (!vendor) throw new ApiError("invalid id", 400);
       let {
         name,
+        email,
         company,
         building,
         street,
@@ -53,6 +62,7 @@ const updateVendorProfile = async (req, res, next) => {
       } = req.body;
 
       if (name) vendor.name = name;
+      if (email) vendor.email = email;
       if (company) vendor.company = company;
       if (building) vendor.building = building;
       if (street) vendor.street = street;
@@ -60,13 +70,13 @@ const updateVendorProfile = async (req, res, next) => {
 
       if (state) {
         const stateRes = await State.findById(state);
-        if (!stateRes) throw new ApiError('Invalid state', 400);
+        if (!stateRes) throw new ApiError("Invalid state", 400);
         vendor.state = stateRes.name;
         vendor.state_id = stateRes._id;
       }
       if (city) {
         const cityRes = await City.findById(city);
-        if (!cityRes) throw new ApiError('Invalid city', 400);
+        if (!cityRes) throw new ApiError("Invalid city", 400);
         vendor.city = cityRes.name;
         vendor.city_id = cityRes._id;
       }
@@ -76,25 +86,27 @@ const updateVendorProfile = async (req, res, next) => {
       if (pan_no) vendor.pan_no = pan_no;
 
       if (aadhar_no && String(aadhar_no).length !== 12 && isNaN(aadhar_no))
-        throw new ApiError('aadhar_no is invalid', 400);
+        throw new ApiError("aadhar_no is invalid", 400);
 
       if (aadhar_no) vendor.aadhar_no = aadhar_no;
       if (status) {
-        if (status !== 'true' && status !== 'false') throw new ApiError('Invalid status value', 400);
-        vendor.status = status === 'true' ? true : false;
+        if (status !== "true" && status !== "false")
+          throw new ApiError("Invalid status value", 400);
+        vendor.status = status === "true" ? true : false;
       }
       if (req.file) {
         await deleteOldFile(vendor.profile_image);
-        const url = process.env.BASE_URL + req.file.path;
+        const url = `${req.file.destination}/${req.file.filename}`;
         vendor.profile_image = url;
       }
       await vendor.save();
       return res.status(200).json({
         status: true,
-        message: 'Vendor updated.',
+        message: "Vendor updated.",
       });
     } catch (error) {
-      if (req.file) deleteOldFile(process.env.BASE_URL + req.file.path);
+      if (req.file)
+        deleteOldFile(`${req.file.destination}/${req.file.filename}`);
       next(error);
     }
   });

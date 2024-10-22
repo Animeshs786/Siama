@@ -23,6 +23,7 @@ const {
   getHomeData,
   downloadPayslip,
   mailPayslip,
+  getAssignedCheckout,
 } = require('../controllers/vendor');
 const { authenticateVendor } = require('../middlewares');
 
@@ -59,5 +60,7 @@ vendorRoute.get('/invoices', authenticateVendor, getInvoices);
 vendorRoute.get('/taxes', authenticateVendor, getAllTexes);
 
 vendorRoute.get('/customer_reviews', authenticateVendor, getCustomerReviews);
+
+vendorRoute.get('/assignedCheckout', authenticateVendor, getAssignedCheckout);
 
 module.exports = vendorRoute;

@@ -1,24 +1,24 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const banner = new mongoose.Schema(
   {
-    image: { type: String, default: '' },
-    type: { type: String, default: '' },
-    title: { type: String, default: '' },
-    hyperlink: { type: String, default: '' },
+    image: { type: String, default: "" },
+    type: { type: String, default: "" },
+    title: { type: String, default: "" },
+    hyperlink: { type: String, trim: true },
     priority: { type: Number, default: 0 },
     status: { type: Boolean, default: true },
   },
   {
     timestamps: {
-      createdAt: 'created_at',
-      updateAt: 'updated_at',
+      createdAt: "created_at",
+      updateAt: "updated_at",
     },
-    collection: 'banners',
+    collection: "banners",
   }
 );
 
-const Banner = mongoose.model('Banner', banner);
+const Banner = mongoose.model("Banner", banner);
 module.exports = Banner;
 /**
  * ----------------- NOTES -----------------

@@ -1,7 +1,1 @@
-node_modules
-public/category
-public/service
-public/user
-public/document
-
-*.zip
+/node_modules

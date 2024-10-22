@@ -50,12 +50,10 @@ const updateAdminProfile = async (req, res, next) => {
       }
       if (req.file) {
         await deleteOldFile(admin.profile_image);
-        const url = process.env.BASE_URL + req.file.path;
+        const url = `${req.file.destination}/${req.file.filename}`;
         updateData.profile_image = url;
       }
-      const newAdmin = await Admin.findByIdAndUpdate(admin._id, updateData, { new: true }).select(
-        '-password -created_at -updatedAt -__v'
-      );
+      const newAdmin = await Admin.findByIdAndUpdate(admin._id, updateData, { new: true }).select('-password -created_at -updatedAt -__v');
       return res.status(200).json({
         status: true,
         message: 'Admin profile updated.',

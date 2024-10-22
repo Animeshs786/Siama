@@ -1,21 +1,46 @@
-const mongoose = require('mongoose');
-const address = new mongoose.Schema(
-  {
-    name: { type: String, trim: true, default: '' },
-    phone: { type: String, trim: true, default: '' },
-    state: { type: String, trim: true, default: '' },
-    state_id: { type: String, trim: true, default: '' },
-    city: { type: String, trim: true, default: '' },
-    city_id: { type: String, trim: true, default: '' },
-    pincode: { type: String, trim: true, default: '' },
-    building: { type: String, trim: true, default: '' },
-    landmark: { type: String, trim: true, default: '' },
-  },
-  {
-    timestamps: false,
-    collection: 'addresses',
-  }
-);
+const mongoose = require("mongoose");
 
-const Address = mongoose.model('Address', address);
+const addressSchema = new mongoose.Schema({
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+  name:String,
+  email:String,
+  address: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  building: {
+    type: String,
+    trim: true,
+  },
+  phoneNumber: {
+    type: String,
+    trim: true,
+    required: true,
+  },
+  pinCode: {
+    type: String,
+    trim: true,
+  },
+  landmark: {
+    type: String,
+    trim: true,
+  },
+  state: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "State",
+    required: true,
+  },
+  city: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "City",
+    required: true,
+  },
+});
+
+const Address = mongoose.model("Address", addressSchema);
 module.exports = Address;

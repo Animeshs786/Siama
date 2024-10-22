@@ -42,7 +42,11 @@ const updateBanner = async (req, res, next) => {
       if (!banner) throw new ApiError('invalid id', 404);
       if (title) banner.title = title;
 
-      if (hyperlink) banner.hyperlink = hyperlink;
+      if (hyperlink) {
+        // Clean up the hyperlink string
+        const cleanedHyperlink = hyperlink.replace(/^"|"$/g, "");
+        banner.hyperlink = cleanedHyperlink;
+      }
       if (priority) {
         if (isNaN(priority) || priority > 100) throw new ApiError('Invalid priority', 400);
         banner.priority = priority;
@@ -53,7 +57,7 @@ const updateBanner = async (req, res, next) => {
       }
       if (req.file) {
         deleteOldFile(banner.image);
-        banner.image = process.env.BASE_URL + req.file.path;
+        banner.image =`${req.file.destination}/${req.file.filename}`;
       }
       await banner.save();
       return res.status(201).json({
@@ -64,7 +68,7 @@ const updateBanner = async (req, res, next) => {
         },
       });
     } catch (error) {
-      if (req.file) deleteOldFile(process.env.BASE_URL + req.file.path);
+      if (req.file) deleteOldFile(`${req.file.destination}/${req.file.filename}`);
       next(error);
     }
   });

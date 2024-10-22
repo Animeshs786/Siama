@@ -1,47 +1,56 @@
-const { isValidObjectId } = require('mongoose');
-const { Service } = require('../../../models');
-const { ApiError } = require('../../../errorHandler');
+const { isValidObjectId } = require("mongoose");
+const { Service } = require("../../../models");
+const { ApiError } = require("../../../errorHandler");
 
 const getServices = async (req, res, next) => {
   try {
-    const { categs, scategs, search, service_mode } = req.query;
+    const { categs, scategs, search, service_mode } = req.body;
     const findObj = {};
     let categ_arr = [];
     if (categs) {
-      categ_arr = categs.split(',');
+      categ_arr = categs.split(",");
       for (let i = 0; i < categ_arr.length; i++) {
         const id = categ_arr[i];
-        if (!isValidObjectId(id)) throw new ApiError('Invalid Category Id', 400);
+        if (!isValidObjectId(id))
+          throw new ApiError("Invalid Category Id", 400);
       }
       findObj.category = { $in: categ_arr };
     }
 
     let scateg_arr = [];
     if (scategs) {
-      scateg_arr = scategs.split(',');
+      scateg_arr = scategs.split(",");
       for (let i = 0; i < scateg_arr.length; i++) {
         const id = scateg_arr[i];
-        if (!isValidObjectId(id)) throw new ApiError('Invalid sub category id', 400);
+        if (!isValidObjectId(id))
+          throw new ApiError("Invalid sub category id", 400);
       }
       findObj.sub_category = { $in: scateg_arr };
     }
 
-    if (search) findObj.name = { $regex: search, $options: 'i' };
+    if (search) {
+      console.log(search, "search");
+      if (search.length < 3) throw new ApiError("Search length must be 3", 400);
+      findObj.name = { $regex: search, $options: "i" };
+    }
 
     if (service_mode) {
-      const modes = ['online', 'onsite', 'both'];
-      if (!modes.includes(service_mode)) throw new ApiError('Invalid Service mode', 400);
+      const modes = ["online", "onsite", "both"];
+      if (!modes.includes(service_mode))
+        throw new ApiError("Invalid Service mode", 400);
       let findModes = [];
-      if (service_mode === 'online') findModes = ['online', 'both'];
-      if (service_mode === 'onsite') findModes = ['onsite', 'both'];
-      if (service_mode === 'both') findModes = ['both'];
+      if (service_mode === "online") findModes = ["online", "both"];
+      if (service_mode === "onsite") findModes = ["onsite", "both"];
+      if (service_mode === "both") findModes = ["both"];
       findObj.service_mode = { $in: findModes };
     }
 
-    const services = await Service.find(findObj);
+    findObj.status = true;
+    const services = await Service.find(findObj).populate("reviews");
     return res.status(200).json({
       status: true,
-      message: 'Service listing.',
+      size: services.length,
+      message: "Service listing.",
       data: services,
     });
   } catch (error) {

@@ -150,3 +150,11 @@ function validateGSTIN(gstin) {
 //   console.log(response.data);
 // }
 // test();
+//
+//last updated admin password $2b$10$djWHC6S0Jvs3jL02a9cIjOgvt1DfQwIUPESiOWNdtP1tYTPa/zM.W
+// (async function () {
+//   const bcrypt = require('bcrypt');
+//   const salt = await bcrypt.genSalt(10);
+//   const hashedPassword = await bcrypt.hash('Services@2023%#', salt);
+//   console.log(hashedPassword);
+// })();

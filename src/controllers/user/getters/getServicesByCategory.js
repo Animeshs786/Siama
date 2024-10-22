@@ -1,27 +1,34 @@
-const { isValidObjectId } = require('mongoose');
-const { ApiError } = require('../../../errorHandler');
-const { SubCategory, Category, Service } = require('../../../models');
+const { isValidObjectId } = require("mongoose");
+const { ApiError } = require("../../../errorHandler");
+const { SubCategory, Category, Service } = require("../../../models");
 
 const getServicesByCategory = async (req, res, next) => {
   try {
     const { cat_id, scat_id } = req.query;
-    if (!cat_id && !scat_id) throw new ApiError('cat_id or scat_id is required.', 400);
+    if (!cat_id && !scat_id)
+      throw new ApiError("cat_id or scat_id is required.", 400);
     if (scat_id) {
-      if (!isValidObjectId(scat_id)) throw new ApiError('Invalid scat_id', 400);
-      const services = await Service.find({ sub_category: scat_id }).select('-created_at -updated_at -__v');
+      if (!isValidObjectId(scat_id)) throw new ApiError("Invalid scat_id", 400);
+      const services = await Service.find({
+        sub_category: scat_id,
+        status: ture,
+      }).select("-created_at -updated_at -__v");
       return res.status(200).json({
         status: true,
-        message: 'Service Listing from sub category.',
+        message: "Service Listing from sub category.",
         data: services,
       });
     }
 
     if (cat_id) {
-      if (!isValidObjectId(cat_id)) throw new ApiError('Invalid cat_id', 400);
-      const services = await Service.find({ category: cat_id }).select('-created_at -updated_at -__v');
+      if (!isValidObjectId(cat_id)) throw new ApiError("Invalid cat_id", 400);
+      const services = await Service.find({
+        category: cat_id,
+        status: true,
+      }).select("-created_at -updated_at -__v");
       return res.status(200).json({
         status: true,
-        message: 'Service Listing from category',
+        message: "Service Listing from category",
         data: services,
       });
     }
